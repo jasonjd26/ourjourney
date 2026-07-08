@@ -2,958 +2,555 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Yeehaw">
-<meta name="theme-color" content="#15110c">
-<title>Yeehaw — Jason &amp; Ciara</title>
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon-180.png">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rye&family=Zilla+Slab:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>YEEHAW — The Tab</title>
+<meta name="theme-color" content="#2b1d12">
 <style>
-:root{
-  --bg:#15110c; --bg2:#1b1610; --card:#201a12; --card2:#2a2218; --line:#3a2f22;
-  --txt:#f3ebdd; --mut:#b6a890; --mut2:#7d705c;
-  --coral:#d9763e; --amber:#e6a43c; --teal:#7fbf98; --teal2:#4f9e74; --rose:#d4604f;
-  --jason:#e6a43c; --ciara:#7fbf98;
-  --display:"Rye",Georgia,serif; --slab:"Zilla Slab",Georgia,serif;
-  --star:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
-}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;padding:0;background:var(--bg);color:var(--txt);
-  font-family:var(--slab),-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
-h1,h2,h3{margin:0;font-weight:700}
-button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;font-size:inherit}
-input,select,textarea{font-family:inherit;font-size:16px}
-.wrap{max-width:560px;margin:0 auto;min-height:100vh;padding-bottom:96px;position:relative}
-.muted{color:var(--mut)} .ctr{text-align:center}
+  :root{
+    --leather:#2b1d12; --leather2:#3a2818; --cream:#f6ead2; --paper:#efe0bf;
+    --ink:#2b1d12; --gold:#e0a83c; --cactus:#5d8a4e; --rust:#c0563b;
+    --shadow:0 6px 24px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  html,body{margin:0; padding:0}
+  body{
+    background: radial-gradient(1200px 500px at 50% -10%, #4a3a20 0%, transparent 60%), var(--leather);
+    color:var(--cream);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    min-height:100vh; padding:16px 14px calc(28px + env(safe-area-inset-bottom));
+    max-width:520px; margin:0 auto;
+  }
+  header{text-align:center; margin:6px 0 14px}
+  .brand{
+    font-size:clamp(34px,9vw,44px); font-weight:900; letter-spacing:4px;
+    color:var(--gold); text-shadow:0 2px 0 #7a5416, 0 6px 18px rgba(224,168,60,.25);
+  }
+  .brand .hat{display:inline-block; transform:rotate(-8deg)}
+  .sub{font-size:13px; letter-spacing:2.5px; text-transform:uppercase; color:#cbb88f; margin-top:2px}
+  .sub b{color:var(--cream)}
+  .names{cursor:pointer; border-bottom:1px dashed #cbb88f; display:inline-block; padding:8px 6px; margin:-8px -6px}
 
-/* ===== header ===== */
-header{position:sticky;top:0;z-index:40;padding:14px 18px 12px;
-  background:rgba(21,17,12,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);
-  display:flex;align-items:center;justify-content:space-between}
-.brand{font-family:var(--display);font-size:21px;font-weight:400;letter-spacing:.3px}
-.brand .amp{background:linear-gradient(90deg,var(--coral),var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent;padding:0 1px}
-.hdr-right{display:flex;align-items:center;gap:14px}
-.syncpill{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:var(--mut);
-  background:var(--card2);border:1px solid var(--line);padding:5px 9px;border-radius:999px}
-.dot{width:8px;height:8px;border-radius:50%;background:var(--mut2);display:inline-block;flex-shrink:0}
-.dot.ok{background:var(--teal2)} .dot.sync{background:var(--amber);animation:pulse 1s infinite}
-.dot.err{background:var(--rose)} .dot.local{background:var(--mut)}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
-.gear{width:34px;height:34px;display:flex;align-items:center;justify-content:center;border-radius:9px;color:var(--mut)}
-.gear:active{background:var(--card2)}
-.gear svg{width:20px;height:20px}
+  .card{
+    background:linear-gradient(180deg, var(--cream), var(--paper));
+    color:var(--ink); border-radius:16px; padding:18px 16px; box-shadow:var(--shadow);
+    border:1px solid #d8c69c; position:relative; overflow:hidden;
+  }
+  .card::before, .card::after{
+    content:"★ ★ ★"; position:absolute; left:0; right:0; text-align:center;
+    font-size:10px; letter-spacing:14px; padding-left:14px; color:#b89b62; opacity:.8;
+  }
+  .card::before{top:6px} .card::after{bottom:6px}
 
-/* ===== main / panels ===== */
-main{padding:16px 16px 4px}
-.sec-h{display:flex;align-items:center;gap:8px;margin:4px 2px 12px}
-.sec-h .star{width:14px;height:14px;background:var(--coral);clip-path:var(--star);flex-shrink:0}
-.sec-h h2{font-family:var(--slab);font-size:14px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--coral);white-space:nowrap}
-.sec-h .right{margin-left:auto;font-size:12px;color:var(--mut);white-space:nowrap}
+  #balanceCard{text-align:center; margin-bottom:14px}
+  .owes-line{font-size:14px; text-transform:uppercase; letter-spacing:2px; color:#6d5732; margin-top:10px}
+  .balance{font-variant-numeric:tabular-nums; font-size:clamp(40px,12vw,56px); font-weight:900; line-height:1.1; margin:2px 0}
+  .balance.pos{color:var(--cactus)} .balance.neg{color:var(--rust)} .balance.zero{color:#6d5732}
+  .flavor{font-size:13px; color:#6d5732; font-style:italic; margin-bottom:8px; min-height:17px}
 
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:14px}
-.card-h{display:flex;align-items:center;gap:9px;margin-bottom:13px}
-.card-h h3{font-family:var(--slab);font-size:13px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--txt)}
-.card-h .right{margin-left:auto}
-.card-h .right button{font-size:12px;font-weight:700;color:var(--amber)}
+  .actions{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:14px 0}
+  .actions button{
+    appearance:none; border:none; border-radius:14px; padding:14px 8px;
+    font-size:15px; font-weight:800; letter-spacing:.3px; color:var(--cream);
+    background:linear-gradient(180deg, #6b4a2b, #4c3118); box-shadow:var(--shadow), inset 0 1px 0 rgba(255,255,255,.12);
+    cursor:pointer; transition:transform .06s ease;
+  }
+  .actions button:active{transform:scale(.97)}
+  .actions button.gift{background:linear-gradient(180deg,#c9903a,#9a6a1e)}
+  .actions button.pizza{background:linear-gradient(180deg,#b6543a,#8c3a26)}
+  .actions button span{display:block; font-size:20px; margin-bottom:2px}
 
-/* ===== countdown / hero ===== */
-.hero{position:relative;overflow:hidden;padding:0;border:1px solid var(--line);border-radius:18px;margin-bottom:14px;background:#120d08}
-.hero-art{position:relative;height:132px;background:
-  linear-gradient(180deg,#F6CE6A 0%,#EC9C46 42%,#D26E36 74%,#9C4A2A 100%)}
-.hero-art svg{position:absolute;inset:0;width:100%;height:100%;display:block}
-.hero-body{padding:16px 18px 18px;text-align:center}
-.hero-cap{font-family:var(--slab);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--amber);font-weight:700}
-.cd-row{display:flex;justify-content:center;gap:14px;margin-top:12px}
-.cd-cell{min-width:52px}
-.cd-n{font-family:var(--slab);font-size:34px;font-weight:700;line-height:1;color:var(--txt);font-variant-numeric:tabular-nums}
-.cd-l{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mut2);margin-top:5px}
-.cd-done{font-family:var(--display);font-size:30px;font-weight:400;line-height:1.1;
-  background:linear-gradient(90deg,var(--coral),var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent}
-.cd-sub{font-size:12px;color:var(--mut);margin-top:8px}
+  form.panel{margin:0 0 14px; display:none}
+  form.panel.open{display:block}
+  .panel h3{margin:4px 0 12px; font-size:16px; letter-spacing:1px; text-transform:uppercase; color:#6d5732; text-align:center}
+  .row{display:flex; gap:8px; margin-bottom:10px; align-items:flex-end}
+  .row > *{flex:1}
+  label.f{display:block; font-size:11px; text-transform:uppercase; letter-spacing:1.5px; color:#7a643c; margin:0 0 4px 2px}
+  input[type=text]{
+    width:100%; padding:12px; border-radius:10px; border:1.5px solid #c4ad7c; background:#fffaf0;
+    color:var(--ink); font-size:16px; outline:none;
+  }
+  input:focus{border-color:var(--gold)}
+  .seg{display:flex; background:#e3d3ab; border-radius:10px; padding:3px; gap:3px}
+  .seg button{
+    flex:1; border:none; background:transparent; padding:12px 4px; border-radius:8px;
+    font-size:13px; font-weight:700; color:#6d5732; cursor:pointer;
+  }
+  .seg button.on{background:#fffaf0; color:var(--ink); box-shadow:0 1px 4px rgba(0,0,0,.15)}
+  .submit-row{display:flex; gap:8px; margin-top:12px}
+  .submit-row button{
+    flex:1; border:none; border-radius:12px; padding:13px; font-size:15px; font-weight:800; cursor:pointer;
+  }
+  .submit-row .go{background:var(--cactus); color:#fff}
+  .submit-row .no{background:transparent; color:#7a643c; border:1.5px solid #c4ad7c}
+  .hint{font-size:12px; color:#7a643c; margin-top:8px; text-align:center; font-style:italic}
 
-/* ===== stats ===== */
-.stats{display:flex;gap:10px;margin-bottom:14px}
-.stat{flex:1;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 10px;text-align:center}
-.stat .v{font-family:var(--slab);font-size:22px;font-weight:700;color:var(--amber);font-variant-numeric:tabular-nums}
-.stat .l{font-size:9.5px;letter-spacing:.6px;text-transform:uppercase;color:var(--mut);margin-top:4px}
+  #ledgerCard{padding-bottom:24px}
+  #ledgerCard h3{margin:6px 0 4px; text-align:center; font-size:15px; letter-spacing:3px; text-transform:uppercase; color:#6d5732}
+  .ledger-sub{text-align:center; font-size:11px; color:#7a643c; margin-bottom:10px}
+  ul#ledger{list-style:none; margin:0; padding:0}
+  #ledger li{
+    display:flex; align-items:center; gap:10px; padding:11px 4px;
+    border-bottom:1px dashed #c9b487;
+  }
+  #ledger li:last-child{border-bottom:none}
+  .emo{font-size:22px; width:30px; text-align:center; flex:none}
+  .what{flex:1; min-width:0}
+  .what .d{font-weight:700; font-size:14.5px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .what .m{font-size:11.5px; color:#7a643c; margin-top:1px}
+  .amt{font-variant-numeric:tabular-nums; font-weight:800; font-size:15px; flex:none}
+  .amt.up{color:var(--rust)} .amt.down{color:var(--cactus)} .amt.zero{color:#7a643c}
+  .del{flex:none; border:none; background:none; color:#8a6c3a; font-size:16px; cursor:pointer; padding:12px; margin:-8px -6px -8px 0; min-width:44px; min-height:44px}
+  .empty{text-align:center; color:#7a643c; font-style:italic; padding:18px 6px}
 
-/* ===== progress ===== */
-.bar{height:8px;border-radius:8px;background:#0f0c08;overflow:hidden;border:1px solid var(--line)}
-.bar i{display:block;height:100%;width:0;border-radius:8px;background:linear-gradient(90deg,var(--coral),var(--amber));transition:width .4s}
-.bar.teal i{background:linear-gradient(90deg,var(--teal2),var(--teal))}
-
-/* ===== list items ===== */
-.item{display:flex;gap:12px;align-items:flex-start;padding:12px 2px;border-top:1px solid var(--line)}
-.item:first-child{border-top:none}
-.box{width:24px;height:24px;border-radius:7px;border:2px solid var(--mut2);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px;color:#2a1400;transition:.12s;margin-top:1px}
-.box.on{background:linear-gradient(135deg,var(--coral),var(--amber));border-color:transparent}
-.it-body{flex:1;min-width:0}
-.it-t{font-size:14.5px;font-weight:600;line-height:1.35}
-.item.done .it-t{color:var(--mut2);text-decoration:line-through}
-.it-meta{display:flex;align-items:center;gap:8px;margin-top:5px;flex-wrap:wrap}
-.it-meta .due{font-size:11px;color:var(--mut)}
-.it-meta .due.soon{color:var(--amber);font-weight:700}
-.who-tag{font-size:10px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;padding:2px 8px;border-radius:999px;border:1px solid var(--line)}
-.who-tag.Jason{color:var(--jason);border-color:rgba(230,164,60,.4)}
-.who-tag.Ciara{color:var(--ciara);border-color:rgba(127,191,152,.4)}
-.who-tag.Both,.who-tag.Joint{color:var(--mut)}
-.x{color:var(--mut2);font-size:20px;padding:0 4px;flex-shrink:0;line-height:1}
-.x:active{color:var(--rose)}
-
-/* ===== money rows ===== */
-.rec{display:flex;align-items:center;gap:11px;padding:12px 2px;border-top:1px solid var(--line)}
-.rec:first-child{border-top:none}
-.rec-ic{width:34px;height:34px;border-radius:9px;background:var(--card2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--amber);font-size:15px}
-.rec-main{flex:1;min-width:0}
-.rec-t{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.rec-sub{font-size:11.5px;color:var(--mut);margin-top:2px}
-.rec-amt{font-family:var(--slab);font-weight:700;font-size:15px;font-variant-numeric:tabular-nums}
-
-.settle{background:linear-gradient(180deg,rgba(127,191,152,.10),transparent);border-color:rgba(127,191,152,.28)}
-.settle .big{font-family:var(--slab);font-size:20px;font-weight:700;color:var(--teal)}
-.settle .even{color:var(--teal);font-weight:700;font-size:16px}
-
-/* goals */
-.goal{padding:12px 2px;border-top:1px solid var(--line)}
-.goal:first-child{border-top:none}
-.goal-top{display:flex;align-items:baseline;gap:8px;margin-bottom:8px}
-.goal-t{font-size:14px;font-weight:700;flex:1}
-.goal-n{font-size:12px;color:var(--mut);font-variant-numeric:tabular-nums}
-.goal-acts{display:flex;gap:8px;margin-top:9px}
-.goal-acts button{font-size:12px;font-weight:700;color:var(--amber);background:var(--card2);border:1px solid var(--line);border-radius:999px;padding:6px 12px}
-
-/* big editable number */
-.kv{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
-.kv .lbl{font-size:12px;color:var(--mut)}
-.kv .num{font-family:var(--slab);font-weight:700;font-size:22px;font-variant-numeric:tabular-nums}
-.tap{border-bottom:1px dashed var(--mut2)}
-
-/* chips */
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{display:flex;align-items:center;gap:6px;background:var(--card2);border:1px solid var(--line);border-radius:999px;padding:8px 13px;font-size:13px;font-weight:600;color:var(--txt)}
-.chip .plus{color:var(--amber);font-weight:800;font-size:15px}
-.chip:active{border-color:var(--amber)}
-.chip.on{border-color:var(--amber);color:var(--amber)}
-
-/* hero adventures */
-.adv-hero{position:relative;overflow:hidden;background:linear-gradient(135deg,rgba(217,118,62,.22),rgba(230,164,60,.06));border-color:rgba(217,118,62,.32)}
-.adv-hero h3{font-family:var(--display);font-size:19px;font-weight:400;line-height:1.2;text-transform:none;letter-spacing:0}
-.adv-hero p{margin:8px 0 0;font-size:13px;color:#efe7d8;line-height:1.55}
-.adv-sun{position:absolute;top:-30px;right:-14px;width:92px;height:92px;border-radius:50%;background:radial-gradient(circle,var(--amber),transparent 70%);opacity:.5}
-
-/* buttons */
-.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;border-radius:13px;font-weight:700;font-size:14px;letter-spacing:.2px;transition:.12s;border:1px solid var(--line)}
-.btn:active{transform:scale(.985)}
-.btn-go{background:linear-gradient(135deg,var(--coral),var(--amber));color:#2a1400;border:none}
-.btn-ghost{background:var(--card2);color:var(--txt)}
-.btn svg{width:17px;height:17px}
-.empty{text-align:center;color:var(--mut2);font-size:13px;padding:18px 10px 6px}
-
-/* ===== us tab ===== */
-.checkin-grid{display:flex;gap:10px}
-.checkin-col{flex:1;background:var(--bg2);border:1px solid var(--line);border-radius:13px;padding:12px}
-.checkin-col h4{margin:0 0 8px;font-size:12px;font-weight:700;letter-spacing:.6px;text-transform:uppercase}
-.checkin-col.j h4{color:var(--jason)} .checkin-col.c h4{color:var(--ciara)}
-.checkin-line{font-size:12.5px;line-height:1.5;margin:6px 0;color:var(--txt)}
-.checkin-line b{color:var(--mut);font-weight:700;font-size:10.5px;letter-spacing:.5px;text-transform:uppercase;display:block}
-.checkin-line.dim{color:var(--mut2);font-style:italic}
-.mem{padding:11px 2px;border-top:1px solid var(--line)}
-.mem:first-child{border-top:none}
-.mem-t{font-size:14px;line-height:1.45}
-.mem-meta{font-size:11px;color:var(--mut2);margin-top:4px}
-.notepin{background:var(--bg2);border:1px solid var(--line);border-radius:13px;padding:12px;margin-top:10px}
-.notepin .from{font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;margin-bottom:5px}
-.notepin.j .from{color:var(--jason)} .notepin.c .from{color:var(--ciara)}
-.notepin .txt{font-size:14px;line-height:1.5;font-style:italic}
-.notepin .when{font-size:10.5px;color:var(--mut2);margin-top:6px}
-
-/* ===== nav ===== */
-nav{position:fixed;bottom:0;left:0;right:0;max-width:560px;margin:0 auto;display:flex;z-index:50;
-  background:rgba(21,17,12,.97);backdrop-filter:blur(14px);border-top:1px solid var(--line);
-  padding:8px 6px calc(8px + env(safe-area-inset-bottom))}
-.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 2px;border-radius:12px;color:var(--mut);transition:.15s}
-.tab svg{width:21px;height:21px}
-.tab .lb{font-size:9.5px;font-weight:700;letter-spacing:.2px}
-.tab.active{color:var(--amber)}
-.tab.active .lb{color:var(--amber)}
-
-/* ===== fields / forms ===== */
-.field{margin-bottom:12px}
-.flab{display:block;font-size:10px;letter-spacing:.8px;text-transform:uppercase;color:var(--mut);margin-bottom:6px}
-.field input,.field select,.field textarea{width:100%;background:var(--bg2);border:1px solid var(--line);color:var(--txt);border-radius:11px;padding:12px 13px;outline:none}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--coral)}
-.row2{display:flex;gap:10px}.row2>*{flex:1}
-.seg{display:flex;gap:6px;background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:4px}
-.seg button{flex:1;padding:10px;border-radius:8px;font-weight:700;font-size:13px;color:var(--mut)}
-.seg button.on{background:var(--card2);color:var(--txt)}
-.seg button.on[data-v="Jason"]{color:var(--jason)} .seg button.on[data-v="Ciara"]{color:var(--ciara)}
-
-/* ===== modal ===== */
-.modal{position:fixed;inset:0;background:rgba(8,6,4,.66);display:flex;align-items:flex-end;justify-content:center;z-index:90;backdrop-filter:blur(3px)}
-.modal-card{width:100%;max-width:560px;max-height:90vh;overflow-y:auto;background:var(--card);border:1px solid var(--line);border-bottom:none;border-radius:22px 22px 0 0;padding:20px 18px calc(24px + env(safe-area-inset-bottom));animation:rise .22s}
-@keyframes rise{from{transform:translateY(34px)}to{transform:none}}
-.modal-h{display:flex;align-items:center;margin-bottom:16px}
-.modal-h h3{font-family:var(--display);font-size:19px;font-weight:400}
-.modal-h .close{margin-left:auto;color:var(--mut);font-size:24px;padding:0 4px;line-height:1}
-.note{font-size:12px;color:var(--mut);line-height:1.5;background:var(--bg2);border:1px solid var(--line);border-radius:11px;padding:11px 12px;margin:2px 0 12px}
-.note b{color:var(--amber)}
-.test-out{font-size:12px;font-weight:600;margin-top:8px;min-height:16px}
-
-/* ===== who overlay ===== */
-.who{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:26px;
-  background:radial-gradient(120% 60% at 50% 0,rgba(217,118,62,.22),transparent 60%),linear-gradient(180deg,#271c11,#15110c)}
-.who-card{max-width:360px;width:100%;text-align:center;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:30px 24px}
-.who-sun{width:64px;height:64px;border-radius:50%;margin:0 auto 16px;background:radial-gradient(circle,var(--amber),var(--coral) 72%);box-shadow:0 0 48px rgba(217,118,62,.5)}
-.who-card h2{font-family:var(--display);font-size:22px;font-weight:400}
-.who-card p{color:var(--mut);font-size:13.5px;margin:10px 0 20px;line-height:1.5}
-.who-btns{display:flex;gap:12px}
-.who-btns .btn{font-size:16px;padding:16px}
-
-/* ===== toast ===== */
-.toast{position:fixed;bottom:104px;left:50%;transform:translateX(-50%) translateY(16px);background:#2a2218;border:1px solid var(--line);color:var(--txt);padding:11px 18px;border-radius:24px;font-size:13px;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:80;max-width:88%;text-align:center}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .toolbar{display:flex; gap:10px; margin-top:14px}
+  .toolbar button{
+    flex:1; border:1.5px solid #6b533a; background:transparent; color:#cbb88f;
+    padding:11px; border-radius:12px; font-size:13px; font-weight:700; cursor:pointer;
+  }
+  #toast{
+    position:fixed; left:50%; bottom:calc(24px + env(safe-area-inset-bottom));
+    transform:translateX(-50%) translateY(calc(100% + 32px + env(safe-area-inset-bottom))); visibility:hidden;
+    background:var(--gold); color:#2b1d12; font-weight:800; padding:12px 20px; border-radius:999px;
+    box-shadow:var(--shadow); transition:transform .25s ease, visibility 0s .25s; z-index:50; max-width:88vw; text-align:center; font-size:14px;
+  }
+  #toast.show{transform:translateX(-50%) translateY(0); visibility:visible; transition:transform .25s ease}
+  .burst{position:fixed; font-size:26px; z-index:40; pointer-events:none; animation:fly 1.15s ease-out forwards}
+  @keyframes fly{
+    from{opacity:1; transform:translate(0,0) rotate(0deg) scale(1)}
+    to{opacity:0; transform:translate(var(--dx),var(--dy)) rotate(var(--rot)) scale(.6)}
+  }
+  @media (prefers-reduced-motion: reduce){ .burst{display:none} }
 </style>
 </head>
 <body>
-<div class="wrap">
   <header>
-    <div class="brand">Jason <span class="amp">&amp;</span> Ciara</div>
-    <div class="hdr-right">
-      <button class="syncpill" data-act="settings"><span class="dot local" id="syncdot"></span><span id="synctxt">On this phone</span></button>
-      <button class="gear" data-act="settings" aria-label="Settings">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-      </button>
-    </div>
+    <div class="brand"><span class="hat">🤠</span> YEEHAW</div>
+    <div class="sub">the <b class="names" id="nameTap"><span id="nameA">Jason</span> &amp; <span id="nameB">Ciara</span></b> tab</div>
   </header>
-  <main id="main"></main>
-  <nav id="nav"></nav>
-</div>
-<div id="modal-root"></div>
-<div class="toast" id="toast"></div>
+
+  <section class="card" id="balanceCard">
+    <div class="owes-line" id="owesLine">All square</div>
+    <div class="balance zero" id="balanceEl">$0.00</div>
+    <div class="flavor" id="flavorEl">This town ain't big enough for unpaid debts.</div>
+  </section>
+
+  <div class="actions">
+    <button id="btnExpense"><span>🧾</span>Add expense</button>
+    <button id="btnPayback"><span>💵</span>Paid back</button>
+    <button class="gift" id="btnGift"><span>🎁</span>Gift it</button>
+  </div>
+
+  <form class="card panel" id="panelExpense" autocomplete="off" novalidate>
+    <h3>🧾 Add an expense</h3>
+    <label class="f" for="exDesc">What was it, partner?</label>
+    <div class="row"><input type="text" id="exDesc" placeholder="Groceries, gig tickets, dog treats…" maxlength="60"></div>
+    <label class="f" for="exAmt">Total damage ($)</label>
+    <div class="row"><input type="text" id="exAmt" inputmode="decimal" placeholder="0.00"></div>
+    <label class="f">Who drew their wallet?</label>
+    <div class="seg" id="exPayer">
+      <button type="button" data-v="A" class="on">Jason</button>
+      <button type="button" data-v="B">Ciara</button>
+    </div>
+    <div style="height:10px"></div>
+    <label class="f">How's it split?</label>
+    <div class="seg" id="exSplit">
+      <button type="button" data-v="half" class="on">50 / 50</button>
+      <button type="button" data-v="all">All on the other's tab</button>
+    </div>
+    <div class="submit-row">
+      <button type="button" class="no" data-close>Never mind</button>
+      <button type="submit" class="go">Chalk it up</button>
+    </div>
+  </form>
+
+  <form class="card panel" id="panelPayback" autocomplete="off" novalidate>
+    <h3>💵 Debt paid back</h3>
+    <label class="f">Who's settlin' up?</label>
+    <div class="seg" id="pbWho">
+      <button type="button" data-v="B" class="on">Ciara → Jason</button>
+      <button type="button" data-v="A">Jason → Ciara</button>
+    </div>
+    <div style="height:10px"></div>
+    <label class="f" for="pbAmt">How much ($)</label>
+    <div class="row"><input type="text" id="pbAmt" inputmode="decimal" placeholder="0.00"></div>
+    <div class="submit-row">
+      <button type="button" class="no" data-close>Never mind</button>
+      <button type="submit" class="go">Mark it paid</button>
+    </div>
+  </form>
+
+  <form class="card panel" id="panelGift" autocomplete="off" novalidate>
+    <h3>🎁 Gift — wipe some slate</h3>
+    <label class="f">Who's bein' generous?</label>
+    <div class="seg" id="gfWho">
+      <button type="button" data-v="A" class="on">Jason forgives Ciara</button>
+      <button type="button" data-v="B">Ciara forgives Jason</button>
+    </div>
+    <div style="height:10px"></div>
+    <div class="row">
+      <div>
+        <label class="f" for="gfAmt">Amount off the tab ($)</label>
+        <input type="text" id="gfAmt" inputmode="decimal" placeholder="0.00">
+      </div>
+    </div>
+    <label class="f" for="gfNote">Reason (optional)</label>
+    <div class="row"><input type="text" id="gfNote" placeholder="Just bein' sound 🤠" maxlength="60"></div>
+    <div class="submit-row">
+      <button type="button" class="no" data-close>Never mind</button>
+      <button type="submit" class="go">That one's on the house</button>
+    </div>
+    <div class="hint">No money moves — it just comes off what's owed.</div>
+  </form>
+
+  <form class="card panel" id="panelPizza" autocomplete="off" novalidate>
+    <h3>🍕 The Pizza Move</h3>
+    <label class="f">Who's treatin'?</label>
+    <div class="seg" id="pzWho">
+      <button type="button" data-v="A" class="on">Jason treats</button>
+      <button type="button" data-v="B">Ciara treats</button>
+    </div>
+    <div style="height:10px"></div>
+    <label class="f" for="pzDesc">What's the treat?</label>
+    <div class="row"><input type="text" id="pzDesc" placeholder="Whole pizza, the works" maxlength="60"></div>
+    <div class="row">
+      <div>
+        <label class="f" for="pzCost">Treat cost ($, theirs to bear)</label>
+        <input type="text" id="pzCost" inputmode="decimal" placeholder="0.00">
+      </div>
+      <div>
+        <label class="f" for="pzGift">AND knock off the tab ($)</label>
+        <input type="text" id="pzGift" inputmode="decimal" placeholder="0.00">
+      </div>
+    </div>
+    <div class="submit-row">
+      <button type="button" class="no" data-close>Never mind</button>
+      <button type="submit" class="go">Do the Pizza Move</button>
+    </div>
+    <div class="hint">Pay the whole thing yourself AND forgive a chunk of the tab. Big slice energy.</div>
+  </form>
+
+  <section class="card" id="ledgerCard">
+    <h3>The Ledger</h3>
+    <div class="ledger-sub">— every deed, good and bad —</div>
+    <ul id="ledger"></ul>
+  </section>
+
+  <div class="toolbar">
+    <button id="btnCopy">📋 Copy tab summary</button>
+    <button id="btnSettle">🤝 Settle up</button>
+  </div>
+
+  <div id="toast"></div>
+
 <script>
 (function(){
-"use strict";
-/* ============ helpers ============ */
-function $(id){return document.getElementById(id);}
-function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
-function uid(){return "i"+Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
-function now(){return Date.now();}
-function fmtMoney(n){n=+n||0;return "$"+(Math.round(n*100)/100).toLocaleString("en-CA",{minimumFractionDigits:n%1?2:0,maximumFractionDigits:2});}
-function fmtDate(ts){var d=new Date(ts);return d.toLocaleDateString("en-CA",{month:"short",day:"numeric",year:"numeric"});}
-function fmtDay(iso){if(!iso)return "";var p=iso.split("-");var d=new Date(+p[0],+p[1]-1,+p[2]);return d.toLocaleDateString("en-CA",{weekday:"short",month:"short",day:"numeric"});}
-function daysBetween(aIso,b){if(!aIso)return null;var p=aIso.split("-");var a=new Date(+p[0],+p[1]-1,+p[2]);var d=new Date(b);var b0=new Date(d.getFullYear(),d.getMonth(),d.getDate());return Math.round((b0.getTime()-a.getTime())/86400000);}
-function daysUntil(iso){if(!iso)return null;var p=iso.split("-");var t=new Date();var a=new Date(+p[0],+p[1]-1,+p[2]);var t0=new Date(t.getFullYear(),t.getMonth(),t.getDate());return Math.round((a.getTime()-t0.getTime())/86400000);}
-function weekKey(ts){var d=new Date(ts);var day=(d.getDay()+6)%7;d.setDate(d.getDate()-day);return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();}
+  "use strict";
+  var LS_KEY = "yeehaw-tab-v2";
+  var S = load();
 
-/* ============ state ============ */
-var SKEY="yj_state_v2";
-var DEF={
-  v:2, seeded:0,
-  couple:{anniversary:"",arrived:"2026-06-23",moveIn:"2026-07-14",moveLabel:"We get the keys to Bridgeland",up:1},
-  milestones:[], adventures:[], expenses:[], goals:[], contribs:[], memories:[], checkins:[], notes:[], dates:[]
-};
-var S=load();
-function load(){
-  try{var s=JSON.parse(localStorage.getItem(SKEY));if(s&&s.v)return s;}catch(e){}
-  return JSON.parse(JSON.stringify(DEF));
-}
-function persist(){try{localStorage.setItem(SKEY,JSON.stringify(S));}catch(e){}}
-
-/* seeds use FIXED ids so two phones seeding independently merge clean */
-function seed(){
-  if(S.seeded)return;
-  S.seeded=1;
-  var t=1;
-  S.milestones=[
-    {id:"sm1",t:"IKEA run: build the Bridgeland nest",who:"Both",cat:"now",due:"2026-07-15",done:0,up:t},
-    {id:"sm2",t:"Internet + utilities set up at the new place",who:"Jason",cat:"now",due:"2026-07-16",done:0,up:t},
-    {id:"sm3",t:"Address change: banks, CRA, phone plans",who:"Both",cat:"now",due:"2026-07-21",done:0,up:t},
-    {id:"sm4",t:"Register with a family doctor / walk-in clinic",who:"Both",cat:"now",due:"",done:0,up:t},
-    {id:"sm5",t:"Jason lands the right Calgary role",who:"Jason",cat:"now",due:"",done:0,up:t},
-    {id:"sm6",t:"Ciara picks her next move (and goes for it)",who:"Ciara",cat:"now",due:"",done:0,up:t},
-    {id:"sm7",t:"Try a boxing class",who:"Jason",cat:"year",due:"",done:0,up:t},
-    {id:"sm8",t:"Find our parish in the new neighbourhood",who:"Both",cat:"year",due:"",done:0,up:t},
-    {id:"sm9",t:"Research IEC to PR pathway",who:"Both",cat:"year",due:"",done:0,up:t},
-    {id:"sm10",t:"First Rockies camping trip",who:"Both",cat:"year",due:"",done:0,up:t},
-    {id:"sm11",t:"Permanent residency",who:"Both",cat:"someday",due:"",done:0,up:t},
-    {id:"sm12",t:"A home with land of our own",who:"Both",cat:"someday",due:"",done:0,up:t},
-    {id:"sm13",t:"Bring the dog over from Ireland",who:"Both",cat:"someday",due:"",done:0,up:t}
-  ];
-  S.adventures=[
-    {id:"sa1",t:"Calgary Stampede",tag:"big",done:0,note:"",up:t},
-    {id:"sa2",t:"Banff day trip",tag:"trip",done:0,note:"",up:t},
-    {id:"sa3",t:"Sunrise at Lake Louise",tag:"trip",done:0,note:"",up:t},
-    {id:"sa4",t:"Drumheller + the dinosaurs",tag:"trip",done:0,note:"",up:t},
-    {id:"sa5",t:"Walk the Peace Bridge at night",tag:"date",done:0,note:"",up:t},
-    {id:"sa6",t:"Find Calgary's best poutine",tag:"food",done:0,note:"",up:t},
-    {id:"sa7",t:"First NHL game: Flames at the Dome",tag:"big",done:0,note:"",up:t},
-    {id:"sa8",t:"See the northern lights",tag:"big",done:0,note:"",up:t},
-    {id:"sa9",t:"Host our first dinner in Bridgeland",tag:"date",done:0,note:"",up:t},
-    {id:"sa10",t:"Fall road trip through the Rockies",tag:"trip",done:0,note:"",up:t}
-  ];
-  S.goals=[
-    {id:"sg1",t:"Home with land fund",target:40000,saved:0,up:t},
-    {id:"sg2",t:"Emergency cushion",target:5000,saved:0,up:t}
-  ];
-  persist();
-}
-
-/* ============ merge (two-phone sync) ============ */
-var COLLS=["milestones","adventures","expenses","goals","contribs","memories","checkins","notes","dates"];
-function mergeColl(a,b){
-  var map={};
-  (a||[]).forEach(function(x){if(x&&x.id)map[x.id]=x;});
-  (b||[]).forEach(function(x){
-    if(!x||!x.id)return;
-    var cur=map[x.id];
-    if(!cur||(x.up||0)>(cur.up||0))map[x.id]=x;
+  var EMO_OK = {"🧾":1,"💵":1,"🎁":1,"🍕":1,"🤝":1};
+  function cleanEntry(e){
+    if(!e || typeof e !== "object") return null;
+    if(!Number.isInteger(e.effect)) return null;
+    return {
+      id: (typeof e.id === "string" && /^[\w-]+$/.test(e.id)) ? e.id : freshId(),
+      ts: (typeof e.ts === "number" && isFinite(e.ts)) ? e.ts : 0,
+      emo: EMO_OK[e.emo] ? e.emo : "🧾",
+      desc: typeof e.desc === "string" ? e.desc.slice(0,80) : "(entry)",
+      meta: typeof e.meta === "string" ? e.meta.slice(0,120) : "",
+      effect: e.effect
+    };
+  }
+  function load(){
+    var def = { names:{A:"Jason", B:"Ciara"}, entries:[] };
+    try{
+      var raw = localStorage.getItem(LS_KEY);
+      if(!raw) return def;
+      var d = JSON.parse(raw);
+      if(!d || typeof d !== "object" || !Array.isArray(d.entries)) return def;
+      var names = d.names || {};
+      return {
+        names: {
+          A: (typeof names.A === "string" && names.A.trim()) ? names.A.slice(0,14) : "Jason",
+          B: (typeof names.B === "string" && names.B.trim()) ? names.B.slice(0,14) : "Ciara"
+        },
+        entries: d.entries.map(cleanEntry).filter(Boolean)
+      };
+    }catch(e){ return def; }
+  }
+  function save(){
+    try{
+      /* merge with any writes from another open tab: union entries by id */
+      var onDisk = load();
+      var have = {};
+      S.entries.forEach(function(e){ have[e.id] = 1; });
+      onDisk.entries.forEach(function(e){ if(!have[e.id] && !DELETED[e.id]) S.entries.push(e); });
+      S.entries.sort(function(a,b){ return a.ts - b.ts; });
+      localStorage.setItem(LS_KEY, JSON.stringify(S));
+    }catch(e){}
+  }
+  var DELETED = {}; /* ids struck this session, so merge doesn't resurrect them */
+  window.addEventListener("storage", function(ev){
+    if(ev.key === LS_KEY){ S = load(); render(); }
   });
-  return Object.keys(map).map(function(k){return map[k];});
-}
-function mergeState(local,remote){
-  if(!remote||!remote.v)return local;
-  var out=JSON.parse(JSON.stringify(local));
-  COLLS.forEach(function(c){out[c]=mergeColl(local[c],remote[c]);});
-  if((remote.couple&&remote.couple.up||0)>(local.couple&&local.couple.up||0))out.couple=remote.couple;
-  out.seeded=local.seeded||remote.seeded||0;
-  return out;
-}
-function alive(arr){return (arr||[]).filter(function(x){return x&&!x.del;});}
 
-/* ============ sync engine ============ */
-var WORKER="https://ladsbuster-data.dalyjason1.workers.dev/league?id=ourjourney_";
-var room=localStorage.getItem("yj_room")||"";
-var syncState="local", pushTimer=null, pollTimer=null, lastPush=0, dirty=0;
-function setSync(st,txt){
-  syncState=st;
-  var d=$("syncdot"),x=$("synctxt");
-  if(d)d.className="dot "+(st==="ok"?"ok":st==="sync"?"sync":st==="err"?"err":"local");
-  if(x)x.textContent=txt||(st==="ok"?"Synced":st==="sync"?"Syncing…":st==="err"?"Sync hiccup":"On this phone");
-}
-function cloudUrl(){return WORKER+encodeURIComponent(room);}
-function push(){
-  if(!room)return;
-  clearTimeout(pushTimer);
-  pushTimer=setTimeout(function(){
-    setSync("sync");
-    fetch(cloudUrl(),{method:"POST",headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({type:"wallets",players:[],wallets:{},blob:S})})
-      .then(function(r){return r.json();})
-      .then(function(){dirty=0;setSync("ok");lastPush=now();})
-      .catch(function(){setSync("err");});
-  },1400);
-}
-function pull(showToast){
-  if(!room)return Promise.resolve(false);
-  setSync("sync");
-  return fetch(cloudUrl()).then(function(r){return r.json();}).then(function(j){
-    var remote=j&&j.blob;
-    var ahead=false;
-    if(remote&&remote.v){
-      var merged=mergeState(S,remote);
-      var changed=JSON.stringify(merged)!==JSON.stringify(S);
-      ahead=JSON.stringify(merged)!==JSON.stringify(remote);
-      S=merged;persist();
-      if(changed){render();if(showToast)toast("Pulled the latest from you two ☁️");}
+  /* money: integer cents everywhere */
+  function toCents(v){
+    var s = String(v).trim();
+    if(!s) return null;
+    if(/^\d{1,3}(,\d{3})+(\.\d+)?$/.test(s)) s = s.replace(/,/g, "");      /* 1,500 / 1,000,000.50 */
+    else if(/^\d+,\d{1,2}$/.test(s)) s = s.replace(",", ".");               /* 12,50 decimal comma */
+    else if(s.indexOf(",") !== -1) return null;                              /* ambiguous comma: reject */
+    if(!/^\d*\.?\d*$/.test(s)) return null;
+    var n = parseFloat(s);
+    if(!isFinite(n) || n < 0) return null;
+    var c = Math.round(n * 100);
+    if(c > 1e13) return null; /* keep every sum safely inside 2^53 */
+    return c;
+  }
+  function fmt(cents){
+    var neg = cents < 0; var c = Math.abs(cents);
+    return (neg ? "-" : "") + "$" + (c/100).toLocaleString("en-CA", {minimumFractionDigits:2, maximumFractionDigits:2});
+  }
+  /* balance = how much B (Ciara) owes A (Jason). negative = A owes B */
+  function balance(){
+    return S.entries.reduce(function(sum,e){ return sum + e.effect; }, 0);
+  }
+  function esc(s){
+    return String(s).replace(/[&<>"']/g, function(ch){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch];
+    });
+  }
+  function other(w){ return w === "A" ? "B" : "A"; }
+  function nm(w){ return S.names[w]; }
+
+  var FLAVOR_OWED = [
+    "Best settle up 'fore sundown, partner.",
+    "The sheriff's keepin' an eye on this one.",
+    "That tab's growin' like tumbleweed.",
+    "Interest rate: one (1) favour."
+  ];
+  var FLAVOR_SQUARE = [
+    "All square. This town sleeps easy tonight.",
+    "Not a nickel owed. Beautiful.",
+    "Clean slate — like a fresh saloon floor."
+  ];
+
+  function render(){
+    document.getElementById("nameA").textContent = S.names.A;
+    document.getElementById("nameB").textContent = S.names.B;
+
+    var b = balance();
+    var owesLine = document.getElementById("owesLine");
+    var balEl = document.getElementById("balanceEl");
+    var flavor = document.getElementById("flavorEl");
+    balEl.textContent = fmt(Math.abs(b));
+    if(b > 0){
+      owesLine.textContent = nm("B") + " owes " + nm("A");
+      balEl.className = "balance pos";
+      flavor.textContent = FLAVOR_OWED[S.entries.length % FLAVOR_OWED.length];
+    } else if (b < 0){
+      owesLine.textContent = nm("A") + " owes " + nm("B");
+      balEl.className = "balance neg";
+      flavor.textContent = FLAVOR_OWED[S.entries.length % FLAVOR_OWED.length];
+    } else {
+      owesLine.textContent = "All square";
+      balEl.className = "balance zero";
+      flavor.textContent = FLAVOR_SQUARE[S.entries.length % FLAVOR_SQUARE.length];
     }
-    if(ahead||dirty){push();}else{setSync("ok");}
-    return true;
-  }).catch(function(){setSync("err");return false;});
-}
-function startPolling(){
-  clearInterval(pollTimer);
-  if(!room)return;
-  pollTimer=setInterval(function(){if(document.visibilityState==="visible")pull(false);},25000);
-}
-function touch(){dirty=1;persist();push();}
 
-/* ============ device identity ============ */
-var me=localStorage.getItem("yj_who")||"";
-var other=function(){return me==="Jason"?"Ciara":"Jason";};
+    /* segmented controls carry live names */
+    document.querySelectorAll("#exPayer button")[0].textContent = nm("A");
+    document.querySelectorAll("#exPayer button")[1].textContent = nm("B");
+    document.querySelectorAll("#pbWho button")[0].textContent = nm("B") + " → " + nm("A");
+    document.querySelectorAll("#pbWho button")[1].textContent = nm("A") + " → " + nm("B");
+    document.querySelectorAll("#gfWho button")[0].textContent = nm("A") + " forgives " + nm("B");
+    document.querySelectorAll("#gfWho button")[1].textContent = nm("B") + " forgives " + nm("A");
+    document.querySelectorAll("#pzWho button")[0].textContent = nm("A") + " treats";
+    document.querySelectorAll("#pzWho button")[1].textContent = nm("B") + " treats";
 
-/* ============ money math ============ */
-/* expense: {id,t,amt,paidBy,split:"half"|"forOther"|"settle",ts,up}
-   half: payer covered a shared thing -> other owes half
-   forOther: payer covered something purely for the other -> other owes all
-   settle: payer paid the other back amt (reduces payer's debt) */
-function settleCalc(expenses){
-  var ciaraOwesJason=0;
-  alive(expenses).forEach(function(e){
-    var amt=+e.amt||0;
-    if(e.split==="settle"){
-      if(e.paidBy==="Ciara")ciaraOwesJason-=amt;else ciaraOwesJason+=amt;
+    var ul = document.getElementById("ledger");
+    if(!S.entries.length){
+      ul.innerHTML = '<li class="empty">Nothin’ on the books yet. Quiet out here… too quiet. 🌵</li>';
       return;
     }
-    var share=e.split==="forOther"?amt:amt/2;
-    if(e.paidBy==="Jason")ciaraOwesJason+=share;else ciaraOwesJason-=share;
+    ul.innerHTML = S.entries.slice().reverse().map(function(e){
+      var cls = e.effect > 0 ? "up" : (e.effect < 0 ? "down" : "zero");
+      var sign = e.effect > 0 ? "+" : (e.effect < 0 ? "−" : "");
+      var amtTxt = e.effect === 0 ? "—" : (sign + fmt(Math.abs(e.effect)).slice(0));
+      var when = new Date(e.ts).toLocaleDateString("en-CA", {month:"short", day:"numeric"});
+      return '<li data-id="' + esc(e.id) + '">' +
+        '<div class="emo">' + esc(e.emo) + "</div>" +
+        '<div class="what"><div class="d">' + esc(e.desc) + '</div><div class="m">' + esc(e.meta) + " · " + when + "</div></div>" +
+        '<div class="amt ' + cls + '">' + amtTxt + "</div>" +
+        '<button class="del" title="Strike it from the record" aria-label="Delete entry">✕</button>' +
+        "</li>";
+    }).join("");
+  }
+
+  var idSeq;
+  function freshId(){
+    idSeq = (idSeq || 0) + 1; /* guard: callable before initializer runs (load-time cleanEntry) */
+    return Date.now() + "-" + idSeq + "-" + (Math.random().toString(36) + "00000").slice(2, 7);
+  }
+  function addEntry(emo, desc, meta, effect){
+    S.entries.push({ id: freshId(), ts: Date.now(), emo:emo, desc:desc, meta:meta, effect:effect });
+    save(); render();
+  }
+
+  function toast(msg){
+    var t = document.getElementById("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    clearTimeout(t._h); t._h = setTimeout(function(){ t.classList.remove("show"); }, 2600);
+  }
+  function burst(emojis){
+    var w = window.innerWidth, h = window.innerHeight;
+    for(var i=0;i<14;i++){
+      var s = document.createElement("div");
+      s.className = "burst";
+      s.textContent = emojis[i % emojis.length];
+      s.style.left = (w/2 - 14) + "px"; s.style.top = (h*0.35) + "px";
+      s.style.setProperty("--dx", (Math.random()*260-130) + "px");
+      s.style.setProperty("--dy", (Math.random()*-220-40) + "px");
+      s.style.setProperty("--rot", (Math.random()*240-120) + "deg");
+      document.body.appendChild(s);
+      s.addEventListener("animationend", function(){ this.remove(); });
+    }
+  }
+
+  /* ---------- panels ---------- */
+  var panels = { btnExpense:"panelExpense", btnPayback:"panelPayback", btnGift:"panelGift", btnPizza:"panelPizza" };
+  Object.keys(panels).forEach(function(btnId){
+    document.getElementById(btnId).addEventListener("click", function(){
+      var id = panels[btnId];
+      var el = document.getElementById(id);
+      var wasOpen = el.classList.contains("open");
+      document.querySelectorAll("form.panel").forEach(function(p){ p.classList.remove("open"); });
+      if(!wasOpen){ el.classList.add("open"); el.scrollIntoView({behavior:"smooth", block:"center"}); }
+    });
   });
-  return Math.round(ciaraOwesJason*100)/100;
-}
+  document.querySelectorAll("[data-close]").forEach(function(b){
+    b.addEventListener("click", function(){ this.closest("form.panel").classList.remove("open"); });
+  });
+  document.querySelectorAll(".seg").forEach(function(seg){
+    seg.addEventListener("click", function(ev){
+      var b = ev.target.closest("button"); if(!b) return;
+      seg.querySelectorAll("button").forEach(function(x){ x.classList.remove("on"); });
+      b.classList.add("on");
+    });
+  });
+  function segVal(id){ return document.querySelector("#" + id + " button.on").dataset.v; }
 
-function goalSaved(g){
-  var t=+g.saved||0;
-  alive(S.contribs).forEach(function(c){if(c.goalId===g.id)t+=+c.amt||0;});
-  return Math.max(0,Math.round(t*100)/100);
-}
-/* ============ countdown target ============ */
-function nextEvent(){
-  var cands=[];
-  var c=S.couple;
-  if(c.moveIn&&daysUntil(c.moveIn)>=0)cands.push({label:c.moveLabel||"Moving day",date:c.moveIn});
-  if(c.anniversary){
-    var p=c.anniversary.split("-");var t=new Date();
-    var nx=new Date(t.getFullYear(),+p[1]-1,+p[2]);
-    var t0=new Date(t.getFullYear(),t.getMonth(),t.getDate());
-    if(nx<t0)nx=new Date(t.getFullYear()+1,+p[1]-1,+p[2]);
-    var iso=nx.getFullYear()+"-"+String(nx.getMonth()+1).padStart(2,"0")+"-"+String(nx.getDate()).padStart(2,"0");
-    var yrs=nx.getFullYear()-(+p[0]);
-    cands.push({label:(yrs<=0?"Our anniversary":yrs+(yrs===1?" year":" years")+" of us"),date:iso});
-  }
-  alive(S.dates).forEach(function(d){if(d.date&&daysUntil(d.date)>=0)cands.push({label:d.t,date:d.date});});
-  cands=cands.filter(function(x){return daysUntil(x.date)>=0;});
-  cands.sort(function(a,b){return daysUntil(a.date)-daysUntil(b.date);});
-  return cands[0]||null;
-}
+  /* ---------- expense ---------- */
+  document.getElementById("panelExpense").addEventListener("submit", function(ev){
+    ev.preventDefault();
+    var desc = document.getElementById("exDesc").value.trim() || "Somethin' or other";
+    var cents = toCents(document.getElementById("exAmt").value);
+    if(cents === null || cents === 0){ toast("Put a real number on it, partner."); return; }
+    var payer = segVal("exPayer"), split = segVal("exSplit");
+    var share = split === "half" ? Math.round(cents/2) : cents;
+    /* if A paid, B owes share -> effect positive; if B paid, A owes share -> negative */
+    var effect = payer === "A" ? share : -share;
+    var meta = nm(payer) + " paid " + fmt(cents) + (split === "half" ? " · split 50/50" : " · all on " + nm(other(payer)));
+    addEntry("🧾", desc, meta, effect);
+    this.reset(); this.classList.remove("open");
+    toast("Chalked up. " + nm(other(payer)) + "'s tab moved " + fmt(share) + ".");
+  });
 
-/* ============ toast / modal ============ */
-var toastTimer=null;
-function toast(msg){
-  var t=$("toast");if(!t)return;
-  t.textContent=msg;t.classList.add("show");
-  clearTimeout(toastTimer);
-  toastTimer=setTimeout(function(){t.classList.remove("show");},2400);
-}
-function closeModal(){var m=$("modal-root");if(m)m.innerHTML="";}
-function modal(title,bodyHtml){
-  var m=$("modal-root");if(!m)return;
-  m.innerHTML='<div class="modal" data-act="modal-bg"><div class="modal-card" data-stop="1">'+
-    '<div class="modal-h"><h3>'+esc(title)+'</h3><button class="close" data-act="close-modal">×</button></div>'+
-    bodyHtml+'</div></div>';
-}
-function segHtml(name,opts,cur){
-  return '<div class="seg" data-seg="'+name+'">'+opts.map(function(o){
-    return '<button type="button" data-act="seg" data-v="'+esc(o)+'"'+(o===cur?' class="on"':'')+'>'+esc(o)+'</button>';
-  }).join("")+'</div>';
-}
-function segVal(name){
-  var el=document.querySelector('[data-seg="'+name+'"] button.on');
-  return el?el.getAttribute("data-v"):"";
-}
+  /* ---------- payback ---------- */
+  document.getElementById("panelPayback").addEventListener("submit", function(ev){
+    ev.preventDefault();
+    var cents = toCents(document.getElementById("pbAmt").value);
+    if(cents === null || cents === 0){ toast("Put a real number on it, partner."); return; }
+    var who = segVal("pbWho"); /* who is paying money back */
+    var effect = who === "B" ? -cents : cents;
+    addEntry("💵", "Paid back", nm(who) + " → " + nm(other(who)), effect);
+    this.reset(); this.classList.remove("open");
+    toast("Marked paid. Honest work. 💵");
+  });
 
-/* ============ icons ============ */
-var IC={
-  home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5"/><path d="M5 10v10h14V10"/></svg>',
-  map:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 20 3 17V4l6 3 6-3 6 3v13l-6-3-6 3z"/><path d="M9 7v13M15 4v13"/></svg>',
-  cash:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/></svg>',
-  spark:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></svg>',
-  heart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>'
-};
+  /* ---------- gift ---------- */
+  document.getElementById("panelGift").addEventListener("submit", function(ev){
+    ev.preventDefault();
+    var cents = toCents(document.getElementById("gfAmt").value);
+    if(cents === null || cents === 0){ toast("A gift of nothin'? Cold."); return; }
+    var who = segVal("gfWho"); /* who forgives */
+    var note = document.getElementById("gfNote").value.trim();
+    var effect = who === "A" ? -cents : cents;
+    addEntry("🎁", note || "Gift — on the house", nm(who) + " forgave " + fmt(cents) + ", no money moved", effect);
+    this.reset(); this.classList.remove("open");
+    burst(["🎁","💛","🤠","✨"]);
+    toast(nm(who) + " wiped " + fmt(cents) + " off the slate. Sound as a pound.");
+  });
 
-/* ============ views ============ */
-var tab=localStorage.getItem("yj_tab")||"today";
-
-function heroHtml(){
-  var ev=nextEvent();
-  var art='<div class="hero-art"><svg viewBox="0 0 400 132" preserveAspectRatio="xMidYMax slice">'+
-    '<circle cx="200" cy="86" r="34" fill="#FBE9B0" opacity=".9"/>'+
-    '<path d="M0 108 L52 70 L86 96 L128 56 L172 100 L200 84 L238 104 L282 62 L322 94 L362 74 L400 100 L400 132 L0 132 Z" fill="#7A3B22"/>'+
-    '<path d="M0 118 L400 112 L400 132 L0 132 Z" fill="#5B2B18"/>'+
-    '<g fill="#2E1509"><path d="M60 112c0-10 4-14 4-22h4c0 8 4 12 4 22h-3v10h-6v-10z"/><path d="M330 116c0-8 3-11 3-18h4c0 7 3 10 3 18h-2v8h-6v-8z"/></g>'+
-    '</svg></div>';
-  var body;
-  if(ev){
-    var d=daysUntil(ev.date);
-    if(d===0){
-      body='<div class="hero-cap">Today’s the day</div><div class="cd-done" style="margin-top:10px">'+esc(ev.label)+'!</div>'+
-        '<div class="cd-sub">Go live it, you two. \u{1F919}</div>';
-    }else{
-      body='<div class="hero-cap">'+esc(ev.label)+'</div>'+
-        '<div class="cd-row"><div class="cd-cell"><div class="cd-n">'+d+'</div><div class="cd-l">day'+(d===1?"":"s")+'</div></div></div>'+
-        '<div class="cd-sub">'+esc(fmtDay(ev.date))+' · <button class="tap" data-act="edit-dates">change</button></div>';
+  /* ---------- pizza move: treat (no tab change) + optional gift ---------- */
+  document.getElementById("panelPizza").addEventListener("submit", function(ev){
+    ev.preventDefault();
+    var who = segVal("pzWho");
+    var desc = document.getElementById("pzDesc").value.trim() || "A mystery treat";
+    var cost = toCents(document.getElementById("pzCost").value); if(cost === null) cost = 0;
+    var gift = toCents(document.getElementById("pzGift").value); if(gift === null) gift = 0;
+    if(cost === 0 && gift === 0){ toast("That's… not a move at all, partner."); return; }
+    if(cost > 0){
+      addEntry("🍕", desc, nm(who) + " treated — " + fmt(cost) + ", nothin' owed", 0);
     }
-  }else{
-    var dt=S.couple.anniversary?daysBetween(S.couple.anniversary,now()):null;
-    body=dt!=null&&dt>=0?
-      '<div class="hero-cap">Together</div><div class="cd-row"><div class="cd-cell"><div class="cd-n">'+dt.toLocaleString()+'</div><div class="cd-l">days</div></div></div>'+
-      '<div class="cd-sub"><button class="tap" data-act="edit-dates">add a countdown</button></div>':
-      '<div class="hero-cap">Our journey</div><div class="cd-sub" style="margin-top:10px"><button class="tap" data-act="edit-dates">set your dates</button> to light this up</div>';
-  }
-  return '<div class="hero">'+art+'<div class="hero-body">'+body+'</div></div>';
-}
-
-function viewToday(){
-  var inCanada=daysBetween(S.couple.arrived,now());
-  var together=S.couple.anniversary?daysBetween(S.couple.anniversary,now()):null;
-  var ms=alive(S.milestones),ad=alive(S.adventures);
-  var msDone=ms.filter(function(m){return m.done;}).length;
-  var adDone=ad.filter(function(a){return a.done;}).length;
-  var week=ms.filter(function(m){return !m.done&&(m.cat==="now"||(m.due&&daysUntil(m.due)!=null&&daysUntil(m.due)<=10));}).slice(0,4);
-  var h=heroHtml();
-  h+='<div class="stats">'+
-    '<div class="stat"><div class="v">'+(inCanada!=null&&inCanada>=0?inCanada:"—")+'</div><div class="l">days in Canada</div></div>'+
-    '<div class="stat"><div class="v">'+(together!=null&&together>=0?together.toLocaleString():"—")+'</div><div class="l">days together</div></div>'+
-    '<div class="stat"><div class="v">'+msDone+"/"+ms.length+'</div><div class="l">plans done</div></div>'+
-    '<div class="stat"><div class="v">'+adDone+"/"+ad.length+'</div><div class="l">adventures</div></div></div>';
-  h+='<div class="card"><div class="card-h"><h3>Quick draw</h3></div><div class="chips">'+
-    '<button class="chip" data-act="add-expense"><span class="plus">+</span> Expense</button>'+
-    '<button class="chip" data-act="add-memory"><span class="plus">+</span> Memory</button>'+
-    '<button class="chip" data-act="add-milestone"><span class="plus">+</span> Plan</button>'+
-    '<button class="chip" data-act="add-adventure"><span class="plus">+</span> Adventure</button>'+
-    '<button class="chip" data-act="add-note"><span class="plus">+</span> Note to '+esc(other())+'</button></div></div>';
-  h+='<div class="card adv-hero"><div class="adv-sun"></div><h3>Tonight’s pick</h3>'+
-    '<p>Can’t decide what to do? Let the app draw one from your adventure list.</p>'+
-    '<div style="margin-top:12px"><button class="btn btn-go" data-act="spin">'+IC.spark+' Pick something for us</button></div></div>';
-  if(week.length){
-    h+='<div class="card"><div class="card-h"><h3>This week</h3><div class="right"><button data-act="go-plans">all plans →</button></div></div>'+
-      week.map(itemHtml).join("")+'</div>';
-  }
-  return h;
-}
-
-function itemHtml(m){
-  var dd=m.due?daysUntil(m.due):null;
-  return '<div class="item'+(m.done?" done":"")+'" data-id="'+m.id+'">'+
-    '<button class="box'+(m.done?" on":"")+'" data-act="toggle-ms" data-id="'+m.id+'">'+(m.done?"✓":"")+'</button>'+
-    '<div class="it-body"><div class="it-t">'+esc(m.t)+'</div>'+
-    '<div class="it-meta"><span class="who-tag '+esc(m.who)+'">'+esc(m.who)+'</span>'+
-    (m.due?'<span class="due'+(dd!=null&&dd<=5&&!m.done?" soon":"")+'">'+(dd!=null&&dd>=0?(dd===0?"today":"in "+dd+"d"):esc(fmtDay(m.due)))+'</span>':"")+
-    '</div></div>'+
-    '<button class="x" data-act="del-ms" data-id="'+m.id+'">×</button></div>';
-}
-
-function viewPlans(){
-  var ms=alive(S.milestones);
-  function group(cat,label){
-    var list=ms.filter(function(m){return (m.cat||"now")===cat;});
-    var done=list.filter(function(m){return m.done;}).length;
-    var pct=list.length?Math.round(done/list.length*100):0;
-    return '<div class="card"><div class="card-h"><h3>'+label+'</h3><div class="right muted" style="font-size:12px">'+done+"/"+list.length+'</div></div>'+
-      '<div class="bar'+(cat==="someday"?" teal":"")+'" style="margin-bottom:10px"><i style="width:'+pct+'%"></i></div>'+
-      (list.length?list.map(itemHtml).join(""):'<div class="empty">Nothing here yet, add one below.</div>')+'</div>';
-  }
-  return '<div class="sec-h"><span class="star"></span><h2>The Life Plan</h2><div class="right">Jason '+
-    '<span style="color:var(--jason)">●</span> · Ciara <span style="color:var(--ciara)">●</span></div></div>'+
-    group("now","Right now")+group("year","This year")+group("someday","Someday soon")+
-    '<button class="btn btn-go" data-act="add-milestone">'+IC.map+' Add to the plan</button>';
-}
-
-function viewMoney(){
-  var bal=settleCalc(S.expenses);
-  var settleHtml;
-  if(Math.abs(bal)<0.01)settleHtml='<div class="even">All square, partners ✓</div>';
-  else if(bal>0)settleHtml='<div class="big">Ciara owes Jason '+fmtMoney(bal)+'</div>';
-  else settleHtml='<div class="big">Jason owes Ciara '+fmtMoney(-bal)+'</div>';
-  var recent=alive(S.expenses).slice().sort(function(a,b){return b.ts-a.ts;}).slice(0,8);
-  var h='<div class="sec-h"><span class="star"></span><h2>Our Money</h2><div class="right">CAD</div></div>';
-  h+='<div class="card settle"><div class="card-h"><h3>Settle up</h3>'+(Math.abs(bal)>=0.01?'<div class="right"><button data-act="settle-up">mark settled</button></div>':"")+'</div>'+settleHtml+
-    '<div class="muted" style="font-size:11.5px;margin-top:6px">From shared expenses logged below. Half-splits by default.</div></div>';
-  h+='<div class="card"><div class="card-h"><h3>Dream funds</h3><div class="right"><button data-act="add-goal">+ fund</button></div></div>'+
-    (alive(S.goals).length?alive(S.goals).map(function(g){
-      var sv=goalSaved(g);
-      var pct=g.target?Math.min(100,Math.round(sv/g.target*100)):0;
-      return '<div class="goal" data-id="'+g.id+'"><div class="goal-top"><div class="goal-t">'+esc(g.t)+'</div>'+
-        '<div class="goal-n">'+fmtMoney(sv)+' / '+fmtMoney(g.target)+'</div></div>'+
-        '<div class="bar teal"><i style="width:'+pct+'%"></i></div>'+
-        '<div class="goal-acts"><button data-act="fund" data-id="'+g.id+'" data-amt="50">+$50</button>'+
-        '<button data-act="fund" data-id="'+g.id+'" data-amt="200">+$200</button>'+
-        '<button data-act="fund-custom" data-id="'+g.id+'">+ other</button>'+
-        '<button data-act="del-goal" data-id="'+g.id+'" style="color:var(--mut2)">remove</button></div></div>';
-    }).join(""):'<div class="empty">Add a fund you two are building toward.</div>')+'</div>';
-  h+='<div class="card"><div class="card-h"><h3>Recent</h3></div>'+
-    (recent.length?recent.map(function(e){
-      var sub=e.split==="settle"?esc(e.paidBy)+" settled up · "+fmtDate(e.ts):
-        esc(e.paidBy)+" paid · "+(e.split==="forOther"?"for "+esc(e.paidBy==="Jason"?"Ciara":"Jason"):"split half")+" · "+fmtDate(e.ts);
-      return '<div class="rec"><div class="rec-ic">'+(e.split==="settle"?"\u{1F91D}":"\u{1F9FE}")+'</div>'+
-        '<div class="rec-main"><div class="rec-t">'+esc(e.t)+'</div><div class="rec-sub">'+sub+'</div></div>'+
-        '<div class="rec-amt">'+fmtMoney(e.amt)+'</div>'+
-        '<button class="x" data-act="del-exp" data-id="'+e.id+'">×</button></div>';
-    }).join(""):'<div class="empty">No expenses yet. Log the first one.</div>')+'</div>';
-  h+='<button class="btn btn-go" data-act="add-expense">'+IC.cash+' Log an expense</button>';
-  return h;
-}
-
-var advFilter="all";
-function viewFun(){
-  var tags=[["all","All"],["date","Dates"],["trip","Trips"],["food","Food"],["big","Big ones"]];
-  var ad=alive(S.adventures).filter(function(a){return advFilter==="all"||a.tag===advFilter;});
-  var open=ad.filter(function(a){return !a.done;}),done=ad.filter(function(a){return a.done;});
-  var h='<div class="sec-h"><span class="star"></span><h2>Adventures</h2><div class="right">'+alive(S.adventures).filter(function(a){return a.done;}).length+' done</div></div>';
-  h+='<div class="card adv-hero"><div class="adv-sun"></div><h3>The list is the love language</h3>'+
-    '<p>Every date, trip and daft idea you two want to do in this new life. Tick them as you go.</p>'+
-    '<div style="margin-top:12px"><button class="btn btn-go" data-act="spin">'+IC.spark+' Pick tonight’s adventure</button></div></div>';
-  h+='<div class="chips" style="margin-bottom:12px">'+tags.map(function(t){
-    return '<button class="chip'+(advFilter===t[0]?" on":"")+'" data-act="adv-filter" data-v="'+t[0]+'">'+t[1]+'</button>';
-  }).join("")+'</div>';
-  h+='<div class="card">'+(open.length?open.map(advHtml).join(""):'<div class="empty">Nothing left in this list, add more dreams.</div>')+'</div>';
-  if(done.length)h+='<div class="card"><div class="card-h"><h3>Done ✨</h3></div>'+done.map(advHtml).join("")+'</div>';
-  h+='<button class="btn btn-go" data-act="add-adventure">'+IC.spark+' Add an adventure</button>';
-  return h;
-}
-function advHtml(a){
-  return '<div class="item'+(a.done?" done":"")+'">'+
-    '<button class="box'+(a.done?" on":"")+'" data-act="toggle-adv" data-id="'+a.id+'">'+(a.done?"✓":"")+'</button>'+
-    '<div class="it-body"><div class="it-t">'+esc(a.t)+'</div>'+
-    (a.note?'<div class="it-meta"><span class="due">'+esc(a.note)+'</span></div>':"")+'</div>'+
-    '<button class="x" data-act="del-adv" data-id="'+a.id+'">×</button></div>';
-}
-
-function viewUs(){
-  var wk=weekKey(now());
-  var mine=alive(S.checkins).filter(function(c){return c.wk===wk&&c.who===me;})[0];
-  var theirs=alive(S.checkins).filter(function(c){return c.wk===wk&&c.who===other();})[0];
-  function col(who,ci,isMe){
-    var cls=who==="Jason"?"j":"c";
-    var inner;
-    if(ci){
-      inner='<div class="checkin-line"><b>Rose</b>'+esc(ci.rose||"—")+'</div>'+
-        '<div class="checkin-line"><b>Thorn</b>'+esc(ci.thorn||"—")+'</div>'+
-        '<div class="checkin-line"><b>Bud</b>'+esc(ci.bud||"—")+'</div>';
-    }else{
-      inner='<div class="checkin-line dim">'+(isMe?'Not done yet, your turn.':'Waiting on '+esc(who)+'…')+'</div>';
+    if(gift > 0){
+      var effect = who === "A" ? -gift : gift;
+      addEntry("🎁", "Pizza Move bonus", nm(who) + " also forgave " + fmt(gift), effect);
     }
-    return '<div class="checkin-col '+cls+'"><h4>'+esc(who)+'</h4>'+inner+'</div>';
-  }
-  var h='<div class="sec-h"><span class="star"></span><h2>Us</h2><div class="right">'+esc(me||"")+'</div></div>';
-  h+='<div class="card"><div class="card-h"><h3>Weekly check-in</h3><div class="right"><button data-act="do-checkin">'+(mine?"edit mine":"do mine")+'</button></div></div>'+
-    '<div class="checkin-grid">'+col("Jason",me==="Jason"?mine:theirs,me==="Jason")+col("Ciara",me==="Ciara"?mine:theirs,me==="Ciara")+'</div>'+
-    '<div class="muted" style="font-size:11.5px;margin-top:9px">Rose = best bit · Thorn = hardest bit · Bud = what you’re looking forward to</div></div>';
-  var notes=alive(S.notes).sort(function(a,b){return b.ts-a.ts;});
-  var jn=notes.filter(function(n){return n.who==="Jason";})[0];
-  var cn=notes.filter(function(n){return n.who==="Ciara";})[0];
-  h+='<div class="card"><div class="card-h"><h3>Notes on the fridge</h3><div class="right"><button data-act="add-note">leave one</button></div></div>'+
-    (jn?'<div class="notepin j"><div class="from">From Jason <button class="x" style="font-size:14px;float:right" data-act="del-note" data-id="'+jn.id+'">×</button></div><div class="txt">“'+esc(jn.t)+'”</div><div class="when">'+fmtDate(jn.ts)+'</div></div>':"")+
-    (cn?'<div class="notepin c"><div class="from">From Ciara <button class="x" style="font-size:14px;float:right" data-act="del-note" data-id="'+cn.id+'">×</button></div><div class="txt">“'+esc(cn.t)+'”</div><div class="when">'+fmtDate(cn.ts)+'</div></div>':"")+
-    (!jn&&!cn?'<div class="empty">Little love notes live here.</div>':"")+'</div>';
-  var mems=alive(S.memories).sort(function(a,b){return b.ts-a.ts;}).slice(0,20);
-  h+='<div class="card"><div class="card-h"><h3>Memory lane</h3><div class="right"><button data-act="add-memory">+ memory</button></div></div>'+
-    (mems.length?mems.map(function(m2){
-      return '<div class="mem"><div class="mem-t">'+esc(m2.t)+'</div><div class="mem-meta">'+esc(m2.who)+' · '+fmtDate(m2.ts)+
-        ' <button class="x" style="font-size:14px" data-act="del-mem" data-id="'+m2.id+'">×</button></div></div>';
-    }).join(""):'<div class="empty">First memory goes here. Make it a good one.</div>')+'</div>';
-  return h;
-}
+    this.reset(); this.classList.remove("open");
+    burst(["🍕","🤠","💛","✨"]);
+    toast("The Pizza Move. Legendary. 🍕");
+  });
 
-/* ============ nav + render ============ */
-var TABS=[["today","Today",IC.home],["plans","Plans",IC.map],["money","Money",IC.cash],["fun","Fun",IC.spark],["us","Us",IC.heart]];
-function render(){
-  var m=$("main");if(!m)return;
-  m.innerHTML=tab==="plans"?viewPlans():tab==="money"?viewMoney():tab==="fun"?viewFun():tab==="us"?viewUs():viewToday();
-  var n=$("nav");
-  if(n)n.innerHTML=TABS.map(function(t){
-    return '<button class="tab'+(tab===t[0]?" active":"")+'" data-act="tab" data-v="'+t[0]+'">'+t[2]+'<span class="lb">'+t[1]+'</span></button>';
-  }).join("");
-}
+  /* ---------- delete entry ---------- */
+  document.getElementById("ledger").addEventListener("click", function(ev){
+    var del = ev.target.closest(".del"); if(!del) return;
+    var li = del.closest("li"); var id = li.getAttribute("data-id");
+    var e = S.entries.find(function(x){ return x.id === id; });
+    if(!e) return;
+    if(!confirm('Strike "' + e.desc + '" from the record?')) return;
+    DELETED[id] = 1; /* so the two-tab merge in save() can't resurrect it */
+    S.entries = S.entries.filter(function(x){ return x.id !== id; });
+    save(); render();
+    toast("Struck from the record. 🖋️");
+  });
 
-/* ============ modals ============ */
-function mAddMilestone(){
-  modal("Add to the plan",
-    '<div class="field"><label class="flab">What is it?</label><input id="f-t" placeholder="e.g. Book the U-Haul"></div>'+
-    '<div class="field"><label class="flab">Whose?</label>'+segHtml("who",["Jason","Ciara","Both"],me||"Both")+'</div>'+
-    '<div class="field"><label class="flab">Horizon</label>'+segHtml("cat",["now","year","someday"],"now")+'</div>'+
-    '<div class="field"><label class="flab">Due (optional)</label><input id="f-due" type="date"></div>'+
-    '<button class="btn btn-go" data-act="save-milestone">Add it</button>');
-}
-function mAddAdventure(){
-  modal("Add an adventure",
-    '<div class="field"><label class="flab">The dream</label><input id="f-t" placeholder="e.g. Ice skate at Bowness Park"></div>'+
-    '<div class="field"><label class="flab">Type</label>'+segHtml("tag",["date","trip","food","big"],"date")+'</div>'+
-    '<button class="btn btn-go" data-act="save-adventure">On the list</button>');
-}
-function mAddExpense(){
-  modal("Log an expense",
-    '<div class="field"><label class="flab">What was it?</label><input id="f-t" placeholder="e.g. Groceries"></div>'+
-    '<div class="field"><label class="flab">Amount (CAD)</label><input id="f-amt" type="number" inputmode="decimal" placeholder="0.00"></div>'+
-    '<div class="field"><label class="flab">Who paid?</label>'+segHtml("paidBy",["Jason","Ciara"],me||"Jason")+'</div>'+
-    '<div class="field"><label class="flab">Split</label>'+segHtml("split",["half","forOther"],"half")+'</div>'+
-    '<div class="note">“half” = shared thing, the other owes half. “forOther” = you covered something purely for them.</div>'+
-    '<button class="btn btn-go" data-act="save-expense">Log it</button>');
-}
-function mAddGoal(){
-  modal("New dream fund",
-    '<div class="field"><label class="flab">Fund name</label><input id="f-t" placeholder="e.g. Home with land"></div>'+
-    '<div class="field"><label class="flab">Target (CAD)</label><input id="f-amt" type="number" inputmode="decimal" placeholder="10000"></div>'+
-    '<button class="btn btn-go" data-act="save-goal">Start the fund</button>');
-}
-function mAddMemory(){
-  modal("Save a memory",
-    '<div class="field"><label class="flab">What happened?</label><textarea id="f-t" rows="3" placeholder="e.g. First Stampede. Ciara won at the ring toss."></textarea></div>'+
-    '<button class="btn btn-go" data-act="save-memory">Keep it forever</button>');
-}
-function mAddNote(){
-  modal("Note for "+esc(other()||"them"),
-    '<div class="field"><textarea id="f-t" rows="3" placeholder="Something small and lovely."></textarea></div>'+
-    '<button class="btn btn-go" data-act="save-note">Pin it to the fridge</button>');
-}
-function mCheckin(){
-  var wk=weekKey(now());
-  var mine=alive(S.checkins).filter(function(c){return c.wk===wk&&c.who===me;})[0]||{};
-  modal("Your weekly check-in",
-    '<div class="field"><label class="flab">Rose · best bit of the week</label><input id="f-rose" value="'+esc(mine.rose||"")+'"></div>'+
-    '<div class="field"><label class="flab">Thorn · hardest bit</label><input id="f-thorn" value="'+esc(mine.thorn||"")+'"></div>'+
-    '<div class="field"><label class="flab">Bud · looking forward to</label><input id="f-bud" value="'+esc(mine.bud||"")+'"></div>'+
-    '<button class="btn btn-go" data-act="save-checkin">Share it</button>');
-}
-function mDates(){
-  var c=S.couple;
-  modal("Our dates",
-    '<div class="field"><label class="flab">Anniversary (first date!)</label><input id="f-ann" type="date" value="'+esc(c.anniversary||"")+'"></div>'+
-    '<div class="field"><label class="flab">Landed in Canada</label><input id="f-arr" type="date" value="'+esc(c.arrived||"")+'"></div>'+
-    '<div class="row2"><div class="field"><label class="flab">Next big day</label><input id="f-move" type="date" value="'+esc(c.moveIn||"")+'"></div>'+
-    '<div class="field"><label class="flab">What is it?</label><input id="f-movelab" value="'+esc(c.moveLabel||"")+'" placeholder="e.g. Keys day"></div></div>'+
-    '<button class="btn btn-go" data-act="save-dates">Save</button>');
-}
-function mSettings(){
-  modal("Settings",
-    '<div class="note"><b>Sync for two phones.</b> Pick a secret room code together (like a shared password) and enter the same code on both phones. Make it long and unguessable, anyone who knows the code could read this data.</div>'+
-    '<div class="field"><label class="flab">Room code</label><input id="f-room" value="'+esc(room)+'" placeholder="e.g. corkto-calgary-4722" autocapitalize="none"></div>'+
-    '<button class="btn btn-go" data-act="save-room">Connect</button>'+
-    '<div class="test-out" id="test-out"></div>'+
-    '<div style="height:10px"></div>'+
-    '<button class="btn btn-ghost" data-act="edit-dates">Our dates (anniversary, countdown)</button>'+
-    '<div style="height:10px"></div>'+
-    '<div class="row2">'+
-    '<button class="btn btn-ghost" data-act="export">Export backup</button>'+
-    '<button class="btn btn-ghost" data-act="import">Import</button></div>'+
-    '<input id="f-file" type="file" accept="application/json" style="display:none">'+
-    '<div style="height:10px"></div>'+
-    '<button class="btn btn-ghost" data-act="switch-who">I’m '+esc(other()||"the other one")+', actually</button>');
-}
+  /* ---------- settle up ---------- */
+  document.getElementById("btnSettle").addEventListener("click", function(){
+    var b = balance();
+    if(b === 0){ toast("Already square, partner. 🤝"); return; }
+    var debtor = b > 0 ? "B" : "A";
+    if(!confirm(nm(debtor) + " squares the full " + fmt(Math.abs(b)) + " — mark it paid?")) return;
+    addEntry("🤝", "Settled up in full", nm(debtor) + " → " + nm(other(debtor)) + " · " + fmt(Math.abs(b)), -b);
+    burst(["🤝","🌵","🤠"]);
+    toast("All square. This town sleeps easy tonight.");
+  });
 
-/* ============ actions ============ */
-function markDel(coll,id){
-  var arr=S[coll];
-  for(var i=0;i<arr.length;i++)if(arr[i].id===id){arr[i]={id:id,del:1,up:now()};break;}
-  touch();render();
-}
-function findIn(coll,id){var arr=S[coll];for(var i=0;i<arr.length;i++)if(arr[i].id===id)return arr[i];return null;}
+  /* ---------- copy summary ---------- */
+  document.getElementById("btnCopy").addEventListener("click", function(){
+    var b = balance();
+    var line = b === 0 ? "All square 🤝" : (b > 0 ? nm("B") + " owes " + nm("A") + " " + fmt(b) : nm("A") + " owes " + nm("B") + " " + fmt(-b));
+    var last = S.entries.slice(-3).reverse().map(function(e){ return "• " + e.desc + " (" + (e.effect === 0 ? "treat" : fmt(e.effect)) + ")"; }).join("\n");
+    var txt = "🤠 YEEHAW TAB\n" + line + "\nLast entries:\n" + (last || "• nothin' yet");
+    (navigator.clipboard && navigator.clipboard.writeText ? navigator.clipboard.writeText(txt) : Promise.reject()).then(
+      function(){ toast("Copied. Serve it to your partner. 📋"); },
+      function(){ prompt("Copy your tab summary:", txt); }
+    );
+  });
 
-document.addEventListener("click",function(e){
-  var el=e.target;
-  while(el&&el!==document.body&&!(el.getAttribute&&el.getAttribute("data-act"))){
-    if(el.getAttribute&&el.getAttribute("data-stop")){/* click inside modal card: only bg closes */}
-    el=el.parentNode;
-  }
-  if(!el||el===document.body||!el.getAttribute)return;
-  var act=el.getAttribute("data-act"),id=el.getAttribute("data-id"),v=el.getAttribute("data-v");
+  /* ---------- rename ---------- */
+  document.getElementById("nameTap").addEventListener("click", function(){
+    var a = prompt("First cowpoke's name (14 letters max):", S.names.A); if(a === null) return;
+    var b = prompt("Second cowpoke's name (14 letters max):", S.names.B); if(b === null) return;
+    a = a.trim(); b = b.trim();
+    if(a) S.names.A = a.slice(0, 14);
+    if(b) S.names.B = b.slice(0, 14);
+    save(); render();
+  });
 
-  /* seg toggle */
-  if(el.parentNode&&el.parentNode.getAttribute&&el.parentNode.getAttribute("data-seg")){
-    var sib=el.parentNode.querySelectorAll("button");
-    for(var i=0;i<sib.length;i++)sib[i].classList.remove("on");
-    el.classList.add("on");
-    return;
-  }
-
-  switch(act){
-    case "tab": tab=v;localStorage.setItem("yj_tab",v);render();window.scrollTo(0,0);break;
-    case "go-plans": tab="plans";localStorage.setItem("yj_tab",tab);render();window.scrollTo(0,0);break;
-    case "settings": mSettings();break;
-    case "close-modal": closeModal();break;
-    case "modal-bg": if(e.target===el)closeModal();break;
-
-    case "who-pick":
-      me=v;localStorage.setItem("yj_who",v);
-      var w=document.querySelector(".who");if(w)w.remove();
-      toast("Howdy, "+v+" \u{1F920}");render();
-      if(!room)mSettings();break;
-    case "switch-who":
-      me=other();localStorage.setItem("yj_who",me);closeModal();toast("Howdy, "+me+" \u{1F920}");render();break;
-
-    case "add-milestone": mAddMilestone();break;
-    case "save-milestone":{
-      var t1=($("f-t")&&$("f-t").value||"").trim();if(!t1){toast("Give it a name");break;}
-      S.milestones.push({id:uid(),t:t1,who:segVal("who")||"Both",cat:segVal("cat")||"now",due:$("f-due")&&$("f-due").value||"",done:0,up:now()});
-      touch();closeModal();render();toast("On the plan ✓");break;}
-    case "toggle-ms":{
-      var m1=findIn("milestones",id);if(m1){m1.done=m1.done?0:1;m1.up=now();touch();render();if(m1.done)toast("Yeehaw! \u{1F920}");}break;}
-    case "del-ms":{var dm=findIn("milestones",id);if(dm&&confirm('Remove "'+dm.t+'" for both of you?'))markDel("milestones",id);break;}
-
-    case "add-adventure": mAddAdventure();break;
-    case "save-adventure":{
-      var t2=($("f-t")&&$("f-t").value||"").trim();if(!t2){toast("Give it a name");break;}
-      S.adventures.push({id:uid(),t:t2,tag:segVal("tag")||"date",done:0,note:"",up:now()});
-      touch();closeModal();if(tab!=="fun"){tab="fun";localStorage.setItem("yj_tab",tab);}render();toast("Dream logged ✨");break;}
-    case "toggle-adv":{
-      var a1=findIn("adventures",id);if(a1){a1.done=a1.done?0:1;a1.up=now();touch();render();if(a1.done)toast("Adventure complete! \u{1F3C6}");}break;}
-    case "del-adv":{var da=findIn("adventures",id);if(da&&confirm('Remove "'+da.t+'" for both of you?'))markDel("adventures",id);break;}
-    case "adv-filter": advFilter=v;render();break;
-    case "spin":{
-      var pool=alive(S.adventures).filter(function(a){return !a.done;});
-      if(!pool.length){toast("List's empty, add some adventures first!");break;}
-      var pick=pool[Math.floor(Math.random()*pool.length)];
-      modal("Tonight’s pick",'<div class="ctr" style="padding:8px 4px 4px">'+
-        '<div style="font-size:40px;margin-bottom:10px">\u{1F3AF}</div>'+
-        '<div style="font-family:var(--display);font-size:22px;line-height:1.3">'+esc(pick.t)+'</div>'+
-        '<p class="muted" style="font-size:13px;margin:12px 0 18px">Drawn from your list. No backing out now.</p>'+
-        '<button class="btn btn-go" data-act="close-modal">We’re doing it</button>'+
-        '<div style="height:8px"></div>'+
-        '<button class="btn btn-ghost" data-act="spin">Draw again</button></div>');
-      break;}
-
-    case "add-expense": mAddExpense();break;
-    case "save-expense":{
-      var t3=($("f-t")&&$("f-t").value||"").trim();
-      var amt=parseFloat($("f-amt")&&$("f-amt").value);
-      if(!t3||!(amt>0)){toast("Name it and give it an amount");break;}
-      S.expenses.push({id:uid(),t:t3,amt:Math.round(amt*100)/100,paidBy:segVal("paidBy")||"Jason",split:segVal("split")||"half",ts:now(),up:now()});
-      touch();closeModal();if(tab!=="money"){tab="money";localStorage.setItem("yj_tab",tab);}render();toast("Logged \u{1F9FE}");break;}
-    case "del-exp":{
-      var de=findIn("expenses",id);if(!de)break;
-      var stl=alive(S.expenses).filter(function(x){return x.split==="settle";});
-      var newest=stl.length?Math.max.apply(null,stl.map(function(x){return x.ts||0;})):0;
-      var dmsg=de.split!=="settle"&&(de.ts||0)<newest?
-        'This was part of an already-settled balance. Deleting it will shift who owes whom. Delete anyway?':
-        'Remove "'+de.t+'" for both of you?';
-      if(confirm(dmsg))markDel("expenses",id);
-      break;}
-    case "settle-up":{
-      var bal=settleCalc(S.expenses);
-      if(Math.abs(bal)<0.01)break;
-      var payer=bal>0?"Ciara":"Jason";
-      var sid="settle_"+weekKey(now())+"_"+Math.round(Math.abs(bal)*100);
-      if(findIn("expenses",sid)){toast("Already marked settled");break;}
-      S.expenses.push({id:sid,t:"Settled up",amt:Math.abs(bal),paidBy:payer,split:"settle",ts:now(),up:now()});
-      touch();render();toast("All square \u{1F91D}");break;}
-
-    case "add-goal": mAddGoal();break;
-    case "save-goal":{
-      var t4=($("f-t")&&$("f-t").value||"").trim();
-      var tgt=parseFloat($("f-amt")&&$("f-amt").value);
-      if(!t4||!(tgt>0)){toast("Name it and set a target");break;}
-      S.goals.push({id:uid(),t:t4,target:Math.round(tgt),saved:0,up:now()});
-      touch();closeModal();render();toast("Fund started \u{1F331}");break;}
-    case "fund":{
-      var g1=findIn("goals",id);if(g1){S.contribs.push({id:uid(),goalId:id,amt:+el.getAttribute("data-amt")||0,up:now()});touch();render();}break;}
-    case "fund-custom":{
-      var g2=findIn("goals",id);if(!g2)break;
-      modal("Add to "+esc(g2.t),
-        '<div class="field"><label class="flab">Amount (CAD, negative to take out)</label><input id="f-amt" type="number" inputmode="decimal" placeholder="100"></div>'+
-        '<button class="btn btn-go" data-act="save-fund" data-id="'+g2.id+'">Add it</button>');
-      break;}
-    case "save-fund":{
-      var add=parseFloat($("f-amt")&&$("f-amt").value);
-      if(isNaN(add)||add===0){toast("Give me a number");break;}
-      S.contribs.push({id:uid(),goalId:id,amt:Math.round(add*100)/100,up:now()});
-      touch();closeModal();render();toast("Fund updated \u{1F331}");break;}
-    case "del-goal":{var dg=findIn("goals",id);if(dg&&confirm('Remove the "'+dg.t+'" fund for both of you?'))markDel("goals",id);break;}
-
-    case "add-memory": mAddMemory();break;
-    case "save-memory":{
-      var t5=($("f-t")&&$("f-t").value||"").trim();if(!t5){toast("Write something first");break;}
-      S.memories.push({id:uid(),t:t5,who:me||"Both",ts:now(),up:now()});
-      touch();closeModal();if(tab!=="us"){tab="us";localStorage.setItem("yj_tab",tab);}render();toast("Kept forever ❤️");break;}
-    case "del-mem":{if(confirm("Remove this memory for both of you?"))markDel("memories",id);break;}
-
-    case "add-note": mAddNote();break;
-    case "save-note":{
-      var t6=($("f-t")&&$("f-t").value||"").trim();if(!t6){toast("Write something first");break;}
-      S.notes.push({id:uid(),t:t6,who:me||"Jason",ts:now(),up:now()});
-      touch();closeModal();if(tab!=="us"){tab="us";localStorage.setItem("yj_tab",tab);}render();toast("Pinned \u{1F4CC}");break;}
-
-    case "del-note":{if(confirm("Take this note off the fridge?"))markDel("notes",id);break;}
-    case "do-checkin": mCheckin();break;
-    case "save-checkin":{
-      var wk=weekKey(now());
-      var exist=alive(S.checkins).filter(function(c){return c.wk===wk&&c.who===me;})[0];
-      var rose=($("f-rose")&&$("f-rose").value||"").trim(),
-          thorn=($("f-thorn")&&$("f-thorn").value||"").trim(),
-          bud=($("f-bud")&&$("f-bud").value||"").trim();
-      if(!rose&&!thorn&&!bud){toast("Give me at least one");break;}
-      if(exist){exist.rose=rose;exist.thorn=thorn;exist.bud=bud;exist.up=now();}
-      else S.checkins.push({id:"ck_"+wk+"_"+(me||"Jason"),wk:wk,who:me||"Jason",rose:rose,thorn:thorn,bud:bud,up:now()});
-      touch();closeModal();render();toast("Shared ❤️");break;}
-
-    case "edit-dates": mDates();break;
-    case "save-dates":{
-      S.couple.anniversary=$("f-ann")&&$("f-ann").value||"";
-      S.couple.arrived=$("f-arr")&&$("f-arr").value||S.couple.arrived;
-      S.couple.moveIn=$("f-move")&&$("f-move").value||"";
-      S.couple.moveLabel=($("f-movelab")&&$("f-movelab").value||"").trim()||"The next big day";
-      S.couple.up=now();
-      touch();closeModal();render();toast("Dates saved");break;}
-
-    case "save-room":{
-      var r=($("f-room")&&$("f-room").value||"").trim().toLowerCase().replace(/[^a-z0-9_-]/g,"");
-      var out=$("test-out");
-      var typed=($("f-room")&&$("f-room").value||"").trim();
-      if(!r){room="";localStorage.removeItem("yj_room");setSync("local");clearInterval(pollTimer);if(out){out.textContent="Sync off, staying on this phone only.";out.style.color="var(--mut)";}break;}
-      room=r;localStorage.setItem("yj_room",r);
-      startPolling();
-      if(out){out.textContent=(typed.toLowerCase()!==r?"(Code simplified to "+r+".) ":"")+"Connecting…";out.style.color="var(--amber)";}
-      fetch(cloudUrl()).then(function(resp){return resp.json();}).then(function(j){
-        var remote=j&&j.blob;
-        if(remote&&remote.v){
-          var n1=alive(remote.milestones).length,n2=alive(remote.expenses).length,n3=alive(remote.memories).length;
-          S=mergeState(S,remote);persist();render();
-          if(out){out.textContent="Joined! Found shared data here ("+n1+" plans, "+n2+" expenses, "+n3+" memories). Ye're linked.";out.style.color="var(--teal)";}
-        }else{
-          if(out){out.textContent="New room created. "+other()+" should enter this exact code, their phone will say Joined.";out.style.color="var(--teal)";}
-        }
-        dirty=1;push();
-      }).catch(function(){
-        if(out){out.textContent="Couldn't reach the cloud just now. It'll keep retrying in the background.";out.style.color="var(--rose)";}
-        setSync("err");
-      });
-      break;}
-    case "export":{
-      try{
-        var blob=new Blob([JSON.stringify(S,null,2)],{type:"application/json"});
-        var a2=document.createElement("a");a2.href=URL.createObjectURL(blob);a2.download="ourjourney-backup.json";a2.click();
-      }catch(err){toast("Couldn't export");}
-      break;}
-    case "import":{var f=$("f-file");if(f)f.click();break;}
-  }
-});
-
-document.addEventListener("change",function(e){
-  if(e.target&&e.target.id==="f-file"){
-    var file=e.target.files[0];if(!file)return;
-    var r=new FileReader();
-    r.onload=function(){
-      try{
-        var o=JSON.parse(r.result);
-        if(o&&o.v){S=mergeState(S,o);persist();push();closeModal();render();toast("Backup merged in ✓");}
-        else toast("That file doesn't look right");
-      }catch(err){toast("Couldn't read that file");}
-    };
-    r.readAsText(file);
-    e.target.value="";
-  }
-});
-
-/* ============ boot ============ */
-seed();
-if(!me){
-  var whoEl=document.createElement("div");
-  whoEl.className="who";
-  whoEl.innerHTML='<div class="who-card"><div class="who-sun"></div><h2>Well howdy.</h2>'+
-    '<p>One little question so this phone knows whose boots these are.</p>'+
-    '<div class="who-btns"><button class="btn btn-go" data-act="who-pick" data-v="Jason">Jason</button>'+
-    '<button class="btn btn-go" style="background:linear-gradient(135deg,var(--teal2),var(--teal))" data-act="who-pick" data-v="Ciara">Ciara</button></div></div>';
-  document.body.appendChild(whoEl);
-}
-render();
-if(room){setSync("sync");pull(false);startPolling();}
-document.addEventListener("visibilitychange",function(){
-  if(document.visibilityState==="visible"&&room)pull(false);
-  if(document.visibilityState==="hidden")flushNow();
-});
-function flushNow(){
-  if(!room||!dirty)return;
-  try{
-    clearTimeout(pushTimer);
-    var payload=new Blob([JSON.stringify({type:"wallets",players:[],wallets:{},blob:S})],{type:"application/json"});
-    if(navigator.sendBeacon&&navigator.sendBeacon(cloudUrl(),payload))dirty=0;
-  }catch(e){}
-}
-window.addEventListener("pagehide",flushNow);
+  render();
 })();
 </script>
 </body>
