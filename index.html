@@ -56,7 +56,7 @@
   }
   .actions button:active{transform:scale(.97)}
   .actions button.gift{background:linear-gradient(180deg,#c9903a,#9a6a1e)}
-  .actions button.pizza{background:linear-gradient(180deg,#b6543a,#8c3a26)}
+  .actions button:last-child:nth-child(odd){grid-column:1 / -1}
   .actions button span{display:block; font-size:20px; margin-bottom:2px}
 
   form.panel{margin:0 0 14px; display:none}
@@ -202,33 +202,6 @@
     <div class="hint">No money moves — it just comes off what's owed.</div>
   </form>
 
-  <form class="card panel" id="panelPizza" autocomplete="off" novalidate>
-    <h3>🍕 The Pizza Move</h3>
-    <label class="f">Who's treatin'?</label>
-    <div class="seg" id="pzWho">
-      <button type="button" data-v="A" class="on">Jason treats</button>
-      <button type="button" data-v="B">Ciara treats</button>
-    </div>
-    <div style="height:10px"></div>
-    <label class="f" for="pzDesc">What's the treat?</label>
-    <div class="row"><input type="text" id="pzDesc" placeholder="Whole pizza, the works" maxlength="60"></div>
-    <div class="row">
-      <div>
-        <label class="f" for="pzCost">Treat cost ($, theirs to bear)</label>
-        <input type="text" id="pzCost" inputmode="decimal" placeholder="0.00">
-      </div>
-      <div>
-        <label class="f" for="pzGift">AND knock off the tab ($)</label>
-        <input type="text" id="pzGift" inputmode="decimal" placeholder="0.00">
-      </div>
-    </div>
-    <div class="submit-row">
-      <button type="button" class="no" data-close>Never mind</button>
-      <button type="submit" class="go">Do the Pizza Move</button>
-    </div>
-    <div class="hint">Pay the whole thing yourself AND forgive a chunk of the tab. Big slice energy.</div>
-  </form>
-
   <section class="card" id="ledgerCard">
     <h3>The Ledger</h3>
     <div class="ledger-sub">— every deed, good and bad —</div>
@@ -246,6 +219,7 @@
 (function(){
   "use strict";
   var LS_KEY = "yeehaw-tab-v2";
+  var SYNC_URL = "https://ourjourney-data.dalyjason1.workers.dev/state?id=yeehaw-ledger";
   var S = load();
 
   var EMO_OK = {"🧾":1,"💵":1,"🎁":1,"🍕":1,"🤝":1};
@@ -255,14 +229,17 @@
     return {
       id: (typeof e.id === "string" && /^[\w-]+$/.test(e.id)) ? e.id : freshId(),
       ts: (typeof e.ts === "number" && isFinite(e.ts)) ? e.ts : 0,
+      t: (typeof e.t === "number" && isFinite(e.t)) ? e.t : ((typeof e.ts === "number") ? e.ts : 0),
       emo: EMO_OK[e.emo] ? e.emo : "🧾",
       desc: typeof e.desc === "string" ? e.desc.slice(0,80) : "(entry)",
       meta: typeof e.meta === "string" ? e.meta.slice(0,120) : "",
-      effect: e.effect
+      effect: e.effect,
+      deleted: e.deleted === true
     };
   }
+  function visible(){ return S.entries.filter(function(e){ return !e.deleted; }); }
   function load(){
-    var def = { names:{A:"Jason", B:"Ciara"}, entries:[] };
+    var def = { names:{A:"Jason", B:"Ciara"}, namesT:0, entries:[] };
     try{
       var raw = localStorage.getItem(LS_KEY);
       if(!raw) return def;
@@ -274,18 +251,23 @@
           A: (typeof names.A === "string" && names.A.trim()) ? names.A.slice(0,14) : "Jason",
           B: (typeof names.B === "string" && names.B.trim()) ? names.B.slice(0,14) : "Ciara"
         },
+        namesT: (typeof d.namesT === "number" && isFinite(d.namesT)) ? d.namesT : 0,
         entries: d.entries.map(cleanEntry).filter(Boolean)
       };
     }catch(e){ return def; }
   }
   function save(){
     try{
-      /* merge with any writes from another open tab: union entries by id */
+      /* merge with any writes from another open tab: union entries by id, newest t wins */
       var onDisk = load();
-      var have = {};
-      S.entries.forEach(function(e){ have[e.id] = 1; });
-      onDisk.entries.forEach(function(e){ if(!have[e.id] && !DELETED[e.id]) S.entries.push(e); });
-      S.entries.sort(function(a,b){ return a.ts - b.ts; });
+      var byId = {};
+      S.entries.forEach(function(e){ byId[e.id] = e; });
+      onDisk.entries.forEach(function(e){
+        if(DELETED[e.id]) return;
+        var mine = byId[e.id];
+        if(!mine || (e.t || e.ts || 0) > (mine.t || mine.ts || 0)) byId[e.id] = e;
+      });
+      S.entries = Object.keys(byId).map(function(k){ return byId[k]; }).sort(function(a,b){ return a.ts - b.ts; });
       localStorage.setItem(LS_KEY, JSON.stringify(S));
     }catch(e){}
   }
@@ -293,6 +275,57 @@
   window.addEventListener("storage", function(ev){
     if(ev.key === LS_KEY){ S = load(); render(); }
   });
+
+  /* ---------- cloud sync: two phones, one shared tab (Cloudflare Worker + KV) ---------- */
+  function toServerState(){
+    var records = {};
+    S.entries.forEach(function(e){
+      records[e.id] = { id:e.id, ts:e.ts, emo:e.emo, desc:e.desc, meta:e.meta, effect:e.effect, deleted:!!e.deleted, t:e.t||e.ts };
+    });
+    return { scalars: { names: { v: S.names, t: S.namesT || 0 } }, records: records };
+  }
+  function applyServerState(state){
+    if(!state || typeof state !== "object") return;
+    var nS = state.scalars && state.scalars.names;
+    if(nS && typeof nS.t === "number" && nS.v && typeof nS.v === "object" && nS.t >= (S.namesT || 0)){
+      var a = (typeof nS.v.A === "string" && nS.v.A.trim()) ? nS.v.A.slice(0,14) : S.names.A;
+      var b = (typeof nS.v.B === "string" && nS.v.B.trim()) ? nS.v.B.slice(0,14) : S.names.B;
+      S.names = { A:a, B:b }; S.namesT = nS.t;
+    }
+    var recs = (state.records && typeof state.records === "object") ? state.records : {};
+    var byId = {};
+    S.entries.forEach(function(e){ byId[e.id] = e; });
+    Object.keys(recs).forEach(function(id){
+      if(DELETED[id]) return; /* don't let a slow server response resurrect something struck this session */
+      var r = recs[id]; var ce = cleanEntry(r); if(!ce) return;
+      ce.id = id;
+      var local = byId[id];
+      if(!local || ce.t >= (local.t || local.ts || 0)) byId[id] = ce;
+    });
+    S.entries = Object.keys(byId).map(function(k){ return byId[k]; }).sort(function(a,b){ return a.ts - b.ts; });
+  }
+  var syncing = false;
+  function syncPush(){
+    try{
+      fetch(SYNC_URL, { method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({ state: toServerState() }) })
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .then(function(data){ if(data && data.ok && data.state){ applyServerState(data.state); save(); render(); } })
+        .catch(function(){});
+    }catch(e){}
+  }
+  function syncPull(){
+    if(syncing) return; syncing = true;
+    try{
+      fetch(SYNC_URL).then(function(r){ return r.ok ? r.json() : null; })
+        .then(function(data){ if(data && data.ok && data.state){ applyServerState(data.state); save(); render(); } })
+        .catch(function(){})
+        .then(function(){ syncing = false; });
+    }catch(e){ syncing = false; }
+  }
+  syncPull();
+  setInterval(syncPull, 6000);
+  window.addEventListener("focus", syncPull);
+  document.addEventListener("visibilitychange", function(){ if(!document.hidden) syncPull(); });
 
   /* money: integer cents everywhere */
   function toCents(v){
@@ -314,7 +347,7 @@
   }
   /* balance = how much B (Ciara) owes A (Jason). negative = A owes B */
   function balance(){
-    return S.entries.reduce(function(sum,e){ return sum + e.effect; }, 0);
+    return visible().reduce(function(sum,e){ return sum + e.effect; }, 0);
   }
   function esc(s){
     return String(s).replace(/[&<>"']/g, function(ch){
@@ -340,6 +373,7 @@
     document.getElementById("nameA").textContent = S.names.A;
     document.getElementById("nameB").textContent = S.names.B;
 
+    var vis = visible();
     var b = balance();
     var owesLine = document.getElementById("owesLine");
     var balEl = document.getElementById("balanceEl");
@@ -348,15 +382,15 @@
     if(b > 0){
       owesLine.textContent = nm("B") + " owes " + nm("A");
       balEl.className = "balance pos";
-      flavor.textContent = FLAVOR_OWED[S.entries.length % FLAVOR_OWED.length];
+      flavor.textContent = FLAVOR_OWED[vis.length % FLAVOR_OWED.length];
     } else if (b < 0){
       owesLine.textContent = nm("A") + " owes " + nm("B");
       balEl.className = "balance neg";
-      flavor.textContent = FLAVOR_OWED[S.entries.length % FLAVOR_OWED.length];
+      flavor.textContent = FLAVOR_OWED[vis.length % FLAVOR_OWED.length];
     } else {
       owesLine.textContent = "All square";
       balEl.className = "balance zero";
-      flavor.textContent = FLAVOR_SQUARE[S.entries.length % FLAVOR_SQUARE.length];
+      flavor.textContent = FLAVOR_SQUARE[vis.length % FLAVOR_SQUARE.length];
     }
 
     /* segmented controls carry live names */
@@ -366,15 +400,13 @@
     document.querySelectorAll("#pbWho button")[1].textContent = nm("A") + " → " + nm("B");
     document.querySelectorAll("#gfWho button")[0].textContent = nm("A") + " forgives " + nm("B");
     document.querySelectorAll("#gfWho button")[1].textContent = nm("B") + " forgives " + nm("A");
-    document.querySelectorAll("#pzWho button")[0].textContent = nm("A") + " treats";
-    document.querySelectorAll("#pzWho button")[1].textContent = nm("B") + " treats";
 
     var ul = document.getElementById("ledger");
-    if(!S.entries.length){
+    if(!vis.length){
       ul.innerHTML = '<li class="empty">Nothin’ on the books yet. Quiet out here… too quiet. 🌵</li>';
       return;
     }
-    ul.innerHTML = S.entries.slice().reverse().map(function(e){
+    ul.innerHTML = vis.slice().reverse().map(function(e){
       var cls = e.effect > 0 ? "up" : (e.effect < 0 ? "down" : "zero");
       var sign = e.effect > 0 ? "+" : (e.effect < 0 ? "−" : "");
       var amtTxt = e.effect === 0 ? "—" : (sign + fmt(Math.abs(e.effect)).slice(0));
@@ -394,8 +426,9 @@
     return Date.now() + "-" + idSeq + "-" + (Math.random().toString(36) + "00000").slice(2, 7);
   }
   function addEntry(emo, desc, meta, effect){
-    S.entries.push({ id: freshId(), ts: Date.now(), emo:emo, desc:desc, meta:meta, effect:effect });
-    save(); render();
+    var now = Date.now();
+    S.entries.push({ id: freshId(), ts: now, t: now, emo:emo, desc:desc, meta:meta, effect:effect, deleted:false });
+    save(); render(); syncPush();
   }
 
   function toast(msg){
@@ -420,7 +453,7 @@
   }
 
   /* ---------- panels ---------- */
-  var panels = { btnExpense:"panelExpense", btnPayback:"panelPayback", btnGift:"panelGift", btnPizza:"panelPizza" };
+  var panels = { btnExpense:"panelExpense", btnPayback:"panelPayback", btnGift:"panelGift" };
   Object.keys(panels).forEach(function(btnId){
     document.getElementById(btnId).addEventListener("click", function(){
       var id = panels[btnId];
@@ -484,26 +517,6 @@
     toast(nm(who) + " wiped " + fmt(cents) + " off the slate. Sound as a pound.");
   });
 
-  /* ---------- pizza move: treat (no tab change) + optional gift ---------- */
-  document.getElementById("panelPizza").addEventListener("submit", function(ev){
-    ev.preventDefault();
-    var who = segVal("pzWho");
-    var desc = document.getElementById("pzDesc").value.trim() || "A mystery treat";
-    var cost = toCents(document.getElementById("pzCost").value); if(cost === null) cost = 0;
-    var gift = toCents(document.getElementById("pzGift").value); if(gift === null) gift = 0;
-    if(cost === 0 && gift === 0){ toast("That's… not a move at all, partner."); return; }
-    if(cost > 0){
-      addEntry("🍕", desc, nm(who) + " treated — " + fmt(cost) + ", nothin' owed", 0);
-    }
-    if(gift > 0){
-      var effect = who === "A" ? -gift : gift;
-      addEntry("🎁", "Pizza Move bonus", nm(who) + " also forgave " + fmt(gift), effect);
-    }
-    this.reset(); this.classList.remove("open");
-    burst(["🍕","🤠","💛","✨"]);
-    toast("The Pizza Move. Legendary. 🍕");
-  });
-
   /* ---------- delete entry ---------- */
   document.getElementById("ledger").addEventListener("click", function(ev){
     var del = ev.target.closest(".del"); if(!del) return;
@@ -511,9 +524,9 @@
     var e = S.entries.find(function(x){ return x.id === id; });
     if(!e) return;
     if(!confirm('Strike "' + e.desc + '" from the record?')) return;
-    DELETED[id] = 1; /* so the two-tab merge in save() can't resurrect it */
-    S.entries = S.entries.filter(function(x){ return x.id !== id; });
-    save(); render();
+    DELETED[id] = 1; /* so the two-tab/cloud merge can't resurrect it if a stale sync lands after */
+    e.deleted = true; e.t = Date.now();
+    save(); render(); syncPush();
     toast("Struck from the record. 🖋️");
   });
 
@@ -532,7 +545,7 @@
   document.getElementById("btnCopy").addEventListener("click", function(){
     var b = balance();
     var line = b === 0 ? "All square 🤝" : (b > 0 ? nm("B") + " owes " + nm("A") + " " + fmt(b) : nm("A") + " owes " + nm("B") + " " + fmt(-b));
-    var last = S.entries.slice(-3).reverse().map(function(e){ return "• " + e.desc + " (" + (e.effect === 0 ? "treat" : fmt(e.effect)) + ")"; }).join("\n");
+    var last = visible().slice(-3).reverse().map(function(e){ return "• " + e.desc + " (" + (e.effect === 0 ? "treat" : fmt(e.effect)) + ")"; }).join("\n");
     var txt = "🤠 YEEHAW TAB\n" + line + "\nLast entries:\n" + (last || "• nothin' yet");
     (navigator.clipboard && navigator.clipboard.writeText ? navigator.clipboard.writeText(txt) : Promise.reject()).then(
       function(){ toast("Copied. Serve it to your partner. 📋"); },
@@ -547,7 +560,8 @@
     a = a.trim(); b = b.trim();
     if(a) S.names.A = a.slice(0, 14);
     if(b) S.names.B = b.slice(0, 14);
-    save(); render();
+    S.namesT = Date.now();
+    save(); render(); syncPush();
   });
 
   render();
